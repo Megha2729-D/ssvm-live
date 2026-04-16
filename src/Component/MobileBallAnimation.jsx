@@ -154,7 +154,7 @@ const MobileBallAnimation = () => {
 
                     // BG circle reveal
                     gsap.set(bgRevealRef.current, {
-                        clipPath: `circle(${progress * 150}% at 50% 50%)`
+                        clipPath: `circle(${progress * 50}% at 50% 50%)`
                     });
 
                     // subtle ball shrink (premium feel)
@@ -268,7 +268,7 @@ const MobileBallAnimation = () => {
         <div
             ref={containerRef}
             className="mobile-discover-v12 d-block d-md-none overflow-hidden"
-            style={{ height: "60vh", position: "relative", zIndex: 100 }}
+            style={{ height: "70vh", position: "relative", zIndex: 100 }}
         >
             <div ref={pinRef} className="w-100 h-100 position-relative">
 

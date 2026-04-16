@@ -133,7 +133,7 @@ const HorseAnimation = () => {
                             <div className="mission_inner_content">
                                 <div className="section_container px-0 text-white d-flex justify-content-center align-items-center">
                                     <div className="row py-5 justify-content-center align-items-stretch">
-                                        <div className="col-xl-9">
+                                        <div className="col-md-10 col-xl-9">
                                             <div className="about__content text-black">
 
                                                 {/* <span className="section-sub-title text-uppercase small fw-bold">

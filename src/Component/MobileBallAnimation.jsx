@@ -146,20 +146,28 @@ const MobileBallAnimation = () => {
             // =========================
             ScrollTrigger.create({
                 trigger: containerRef.current,
-                start: "top 60%",
-                end: "top -10%",        // until it reaches top
+                start: "top 60%",   // 👈 earlier than before
+                end: "top 20%",
                 scrub: true,
                 onUpdate: (self) => {
                     const progress = self.progress;
 
-                    // BG circle reveal
+                    // BG reveal
                     gsap.set(bgRevealRef.current, {
                         clipPath: `circle(${progress * 50}% at 50% 50%)`
                     });
 
-                    // subtle ball shrink (premium feel)
+                    // Ball shrink
                     gsap.set(ballRef.current, {
                         scale: 1 - progress * 0.2
+                    });
+
+                    // 🔥 Arrow fade OUT EARLY
+                    gsap.to(arrowRef.current, {
+                        opacity: 1 - progress * 3,  // fades faster
+                        scale: 1 - progress * 0.5,
+                        duration: 0.1,
+                        overwrite: true
                     });
                 }
             });
@@ -204,24 +212,46 @@ const MobileBallAnimation = () => {
             // =========================
             // ✨ PHASE 3: TEXT REVEAL
             // =========================
-            tl.to(contentRef.current, {
-                opacity: 1,
-                visibility: "visible",
-                duration: 0.3
-            }, 1.2);
+            ScrollTrigger.create({
+                trigger: containerRef.current,
+                start: "top 40%",   // 👈 earlier than before
+                end: "top 20%",
+                onUpdate: (self) => {
+                    if (self.progress > 0.01) {
+                        gsap.to(contentRef.current, {
+                            opacity: 1,
+                            scale: 1,
+                            visibility: "visible",
+                            duration: 0.2
+                        });
+                    } else {
+                        gsap.to(contentRef.current, {
+                            opacity: 0,
+                            scale: 0,
+                            visibility: "hidden",
+                            duration: 0.2
+                        });
+                    }
+                }
+            });
+            // tl.to(contentRef.current, {
+            //     opacity: 1,
+            //     visibility: "visible",
+            //     duration: 0.3
+            // }, 5);
 
-            tl.fromTo(".text-reveal-item",
-                { y: 40, opacity: 0 },
-                { y: 0, opacity: 1, stagger: 0.3, duration: 0.6 },
-                1.2
-            );
+            // tl.fromTo(".text-reveal-item",
+            //     { y: 40, opacity: 0 },
+            //     { y: 0, opacity: 1, stagger: 0.3, duration: 0.6 },
+            //    -0.5
+            // );
 
-            const letters = document.querySelectorAll(".text-reveal-item .letter");
-            tl.fromTo(letters,
-                { opacity: 0, y: 10 },
-                { opacity: 1, y: 0, stagger: 0.03, duration: 0.4 },
-                1.2
-            );
+            // const letters = document.querySelectorAll(".text-reveal-item .letter");
+            // tl.fromTo(letters,
+            //     { opacity: 0, y: 10 },
+            //     { opacity: 1, y: 0, stagger: 0.03, duration: 0.4 },
+            //     -0.5
+            // );
 
             // =========================
             // 🧑‍💼 PHASE 4: SCALE EFFECT
@@ -268,7 +298,7 @@ const MobileBallAnimation = () => {
         <div
             ref={containerRef}
             className="mobile-discover-v12 d-block d-md-none overflow-hidden"
-            style={{ height: "70vh", position: "relative", zIndex: 100 }}
+            style={{ height: "50vh", position: "relative", zIndex: 100 }}
         >
             <div ref={pinRef} className="w-100 h-100 position-relative">
 
@@ -297,7 +327,7 @@ const MobileBallAnimation = () => {
                     {/* TEXT */}
                     <div
                         ref={contentRef}
-                        // style={{ opacity: 0, visibility: "hidden" }}
+                        style={{ opacity: 0, visibility: "hidden" }}
                         className="text-center px-3 mb-5"
                     >
                         <div className="text-reveal-item mb-3">

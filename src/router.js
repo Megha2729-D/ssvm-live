@@ -11,7 +11,7 @@ import RegistrationPage from "./Pages/RegistrationPage";
 import LoginPage from "./Pages/LoginPage";
 import DashboardPage from "./Pages/DashboardPage";
 import Preloader from "./Component/Preloader";
-
+import ScrollToTop from "./Component/ScrollToTop";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -115,6 +115,7 @@ const Router = () => {
 
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Routes>
                 {/* ✅ Homepage */}
                 <Route

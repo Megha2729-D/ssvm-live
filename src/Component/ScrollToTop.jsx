@@ -1,15 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 const ScrollToTop = () => {
     const { pathname } = useLocation();
+    const prevPath = useRef(pathname);
 
     useEffect(() => {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "auto" // or "smooth" if you want animation
-        });
+        // Only scroll when a *new* route is loaded and not on home page
+        if (pathname !== "/" && pathname !== prevPath.current) {
+            // Use a small timeout to wait until the new page mounts
+            const timeout = setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: "instant" });
+            }, 0);
+
+            return () => clearTimeout(timeout);
+        }
+
+        prevPath.current = pathname;
     }, [pathname]);
 
     return null;

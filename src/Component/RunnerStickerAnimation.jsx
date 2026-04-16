@@ -13,6 +13,10 @@ const RunnerStickerAnimation = () => {
     const playerRef = useRef(null);
 
     useEffect(() => {
+        const safeRefresh = () => {
+            document.body.getBoundingClientRect(); 
+            ScrollTrigger.refresh();
+        };
 
         // Load Lottie (do not autoplay)
         playerRef.current = new DotLottie({
@@ -22,6 +26,13 @@ const RunnerStickerAnimation = () => {
             src: RunnerLottie,
         });
 
+        const ro = new ResizeObserver(() => {
+            window.requestAnimationFrame(() => {
+                safeRefresh();
+            });
+        });
+        if (wrapperRef.current) ro.observe(wrapperRef.current);
+
         // Initial hidden state
         gsap.set(wrapperRef.current, {
             opacity: 0,
@@ -30,10 +41,11 @@ const RunnerStickerAnimation = () => {
         });
 
         // Scroll trigger animation
-        ScrollTrigger.create({
+        const st = ScrollTrigger.create({
             trigger: wrapperRef.current,
             start: "top 85%",
             end: "top 60%",
+            invalidateOnRefresh: true,
 
             onEnter: () => {
                 gsap.to(wrapperRef.current, {
@@ -59,10 +71,22 @@ const RunnerStickerAnimation = () => {
             }
         });
 
+        // ✅ Multi-stage refresh
+        playerRef.current.addEventListener("ready", () => {
+            safeRefresh();
+            setTimeout(safeRefresh, 100);
+        });
+
+        playerRef.current.addEventListener("load", () => {
+            safeRefresh();
+            setTimeout(safeRefresh, 500);
+        });
+
+
         return () => {
-            if (playerRef.current) {
-                playerRef.current.destroy();
-            }
+            playerRef.current?.destroy();
+            ro.disconnect();
+            st.kill();
         };
 
     }, []);

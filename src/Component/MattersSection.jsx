@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import TitleReveal from "./TitleReveal";
+import "../assets/css/matters.css"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,26 +73,26 @@ const MattersSection = () => {
     ];
 
     return (
-        <section 
-            ref={sectionRef} 
-            className="matters_section py-lg-5 py-4 position-relative overflow-hidden" 
-            style={{ 
-                backgroundColor: "#0e0e0e", 
-                minHeight: isMobile ? "auto" : "100vh", 
-                display: "flex", 
+        <section
+            ref={sectionRef}
+            className="matters_section py-4 position-relative overflow-hidden"
+            style={{
+                // backgroundColor: "#0e0e0e",
+                minHeight: isMobile ? "auto" : "100vh",
+                display: "flex",
                 alignItems: "center",
                 padding: isMobile ? "60px 0" : "0"
             }}
         >
             {/* Large Background Text for Aesthetic Depth - Desktop Only */}
             {!isMobile && (
-                <div className="matters-bg-text position-absolute w-100 text-nowrap" style={{ 
-                    fontSize: "20vw", 
-                    fontWeight: "900", 
-                    color: "white", 
-                    opacity: "0.03", 
-                    top: "50%", 
-                    left: "10%", 
+                <div className="matters-bg-text position-absolute w-100 text-nowrap" style={{
+                    fontSize: "20vw",
+                    fontWeight: "900",
+                    color: "white",
+                    opacity: "0.03",
+                    top: "50%",
+                    left: "10%",
                     transform: "translateY(-50%)",
                     pointerEvents: "none",
                     zIndex: 0
@@ -101,26 +102,34 @@ const MattersSection = () => {
             )}
 
             <div className="section_container position-relative" style={{ zIndex: 1 }}>
-                <div className="row justify-content-center mb-lg-5 mb-4">
+                <div className="row justify-content-center mb-lg-5 mb-0">
                     <div className="col-lg-10 text-center">
-                        <span className="section-sub-title text-uppercase small fw-bold mb-3 d-block" style={{ color: "#F2FF33" }}>
+                        <span className="section-sub-title text-uppercase text-white small fw-bold mb-3 d-block" style={{ color: "#F2FF33" }}>
                             <i className="bi bi-info-circle-fill me-2"></i> Why It Matters
                         </span>
-                        <TitleReveal 
-                            text="Why This Conclave Matters" 
-                            className="heading_about text-white mb-lg-4 mb-3" 
-                            style={{ 
-                                fontSize: "clamp(2rem, 5vw, 4rem)",
+                        <TitleReveal
+                            text="Why This Conclave"
+                            className="heading_about text-c1"
+                            style={{
+                                textAlign: "center",
+                                display: "block"
+                            }}
+                            triggerRef={sectionRef}
+                        />
+                        <TitleReveal
+                            text=" Matters"
+                            className="heading_about text-c1"
+                            style={{
                                 textAlign: "center",
                                 display: "block"
                             }}
                             triggerRef={sectionRef}
                         />
                         <div data-aos="fade-up" data-aos-delay="200">
-                            <p className="lead text-white-50 mx-auto px-lg-0 px-3" style={{ 
-                                maxWidth: "700px", 
-                                fontSize: isMobile ? "1rem" : "1.25rem", 
-                                lineHeight: "1.6" 
+                            <p className="lead text-white-50 mx-auto px-lg-0 px-3" style={{
+                                maxWidth: "700px",
+                                // fontSize: isMobile ? "1rem" : "1.25rem",
+                                lineHeight: "1.6"
                             }}>
                                 Most platforms <span style={{ color: "white", fontWeight: "bold" }}>talk to students</span>. <br className="d-lg-block d-none" />
                                 This one <span style={{ color: "#F2FF33", fontWeight: "bold" }}>builds with them</span>.
@@ -131,51 +140,51 @@ const MattersSection = () => {
 
                 <div ref={containerRef} className="row g-lg-4 g-3 mt-lg-5 mt-2 justify-content-center">
                     {values.map((item, index) => (
-                        <div key={index} className="col-lg-3 col-md-6 col-11">
-                            <div className="matter-card h-100 p-lg-4 p-4" style={{ 
-                                background: "rgba(255,255,255,0.03)", 
+                        <div key={index} className="col-lg-3 col-md-6 col-11" data-aos="fade-up">
+                            <div className="matter-card h-100 p-lg-4 p-4" style={{
+                                background: "rgba(255,255,255,0.03)",
                                 border: `1px solid ${index % 2 === 0 ? "rgba(242,255,51,0.2)" : "rgba(255,255,255,0.1)"}`,
                                 borderRadius: "24px",
                                 backdropFilter: "blur(10px)",
                                 transition: "transform 0.3s ease, background 0.3s ease",
                                 cursor: "default"
                             }}
-                            onMouseEnter={(e) => {
-                                if (!isMobile) {
-                                    e.currentTarget.style.transform = "translateY(-10px)";
-                                    e.currentTarget.style.background = "rgba(255,255,255,0.07)";
-                                }
-                            }}
-                            onMouseLeave={(e) => {
-                                if (!isMobile) {
-                                    e.currentTarget.style.transform = "translateY(0)";
-                                    e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                                }
-                            }}
+                                onMouseEnter={(e) => {
+                                    if (!isMobile) {
+                                        e.currentTarget.style.transform = "translateY(-10px)";
+                                        e.currentTarget.style.background = "rgba(255,255,255,0.07)";
+                                    }
+                                }}
+                                onMouseLeave={(e) => {
+                                    if (!isMobile) {
+                                        e.currentTarget.style.transform = "translateY(0)";
+                                        e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+                                    }
+                                }}
                             >
-                                <div className="icon-wrapper mb-lg-4 mb-3 d-inline-flex align-items-center justify-content-center" style={{ 
-                                    width: isMobile ? "50px" : "60px", 
-                                    height: isMobile ? "50px" : "60px", 
-                                    borderRadius: "16px", 
+                                <div className="icon-wrapper mb-lg-4 mb-3 d-inline-flex align-items-center justify-content-center" style={{
+                                    width: isMobile ? "50px" : "60px",
+                                    height: isMobile ? "50px" : "60px",
+                                    borderRadius: "16px",
                                     backgroundColor: index % 2 === 0 ? "rgba(242,255,51,0.1)" : "rgba(255,255,255,0.05)",
                                     color: item.color,
                                     fontSize: isMobile ? "1.2rem" : "1.5rem"
                                 }}>
                                     <i className={`bi ${item.icon}`}></i>
                                 </div>
-                                <TitleReveal 
+                                <TitleReveal
                                     text={item.title}
-                                    className="mb-lg-3 mb-2" 
-                                    style={{ 
-                                        color: "white", 
+                                    className="mb-lg-3 mb-2 text-c1"
+                                    style={{
+                                        // color: "white",
                                         fontWeight: "700",
                                         fontSize: isMobile ? "1.25rem" : "1.5rem"
                                     }}
                                     triggerRef={sectionRef}
                                 />
-                                <p className="text-white-50 m-0" style={{ 
-                                    fontSize: "0.95rem", 
-                                    lineHeight: "1.5" 
+                                <p className="text-white-50 m-0" style={{
+                                    fontSize: "0.95rem",
+                                    lineHeight: "1.5"
                                 }}>{item.text}</p>
                             </div>
                         </div>
@@ -184,42 +193,55 @@ const MattersSection = () => {
 
                 <div className="row mt-lg-5 mt-4 pt-lg-5 pt-4 justify-content-center">
                     <div className="col-lg-8 col-11 text-center" data-aos="zoom-in">
-                        <TitleReveal 
-                            text="Shape Tomorrow Through Action"
-                            className="mb-4 fw-bold text-uppercase"
-                            style={{ 
+                        {/* <TitleReveal
+                            text="Shape Tomorrow Through"
+                            className="fw-bold"
+                            style={{
                                 fontSize: isMobile ? "1.5rem" : "2.5rem",
                                 color: "#F2FF33",
                                 letterSpacing: "2px"
                             }}
                             triggerRef={sectionRef}
                         />
-                        <div className="p-lg-4 p-3 rounded-4" style={{ 
-                            borderLeft: "4px solid #F2FF33", 
+                        <TitleReveal
+                            text=" Action"
+                            className="mb-4 fw-bold"
+                            style={{
+                                fontSize: isMobile ? "1.5rem" : "2.5rem",
+                                color: "#F2FF33",
+                                letterSpacing: "2px"
+                            }}
+                            triggerRef={sectionRef}
+                        /> */}
+                        <div className="p-lg-4 p-3 mt-4 rounded-4" style={{
+                            borderLeft: "4px solid #F2FF33",
                             background: "rgba(242,255,51,0.05)",
                             textAlign: "center"
                         }}>
-                            <TitleReveal 
+                            <p className="text-white mb-0">
+                                If students are expected to shape the future, they need platforms that treat them like they already can.
+                            </p>
+                            {/* <TitleReveal
                                 text="If students are expected to shape the future, they need platforms that treat them like they already can."
                                 className="m-0 text-white italic"
-                                style={{ 
-                                    fontSize: isMobile ? "0.95rem" : "1.1rem", 
-                                    fontStyle: "italic", 
+                                style={{
+                                    fontSize: isMobile ? "0.95rem" : "1.1rem",
+                                    fontStyle: "italic",
                                     opacity: 0.9,
                                     lineHeight: "1.6",
                                     fontWeight: "normal"
                                 }}
                                 triggerRef={sectionRef}
-                            />
+                            /> */}
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Decorative element */}
-            <div className="position-absolute" style={{ 
-                width: isMobile ? "150px" : "300px", 
-                height: isMobile ? "150px" : "300px", 
+            <div className="position-absolute" style={{
+                width: isMobile ? "150px" : "300px",
+                height: isMobile ? "150px" : "300px",
                 background: "radial-gradient(circle, rgba(242,255,51,0.1) 0%, rgba(242,255,51,0) 70%)",
                 bottom: "-75px",
                 right: "-25px",

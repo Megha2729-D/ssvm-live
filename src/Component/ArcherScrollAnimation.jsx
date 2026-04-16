@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import lottie from "lottie-web";
 import gsap from "gsap";
 import ScrollRevealText from "./ScrollRevealText";
@@ -8,7 +9,7 @@ import "../assets/css/archer.css";
 import archerDesktop from "../assets/json/69ad2fc267eed7319abe0df2_archer_desktop.json";
 import archerMobile from "../assets/json/69ad2fd7d569da6b4b7f5c46_archer_mobile.json";
 
-const BASE_IMAGE_URL = "https://ssvm-main.onrender.com/assets/images/"
+const BASE_IMAGE_URL = "https://ssvm-new.onrender.com/assets/images/"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -53,7 +54,7 @@ const ArcherScrollAnimation = () => {
         });
 
         animationRef.current.addEventListener("DOMLoaded", () => {
-
+            ScrollTrigger.refresh();
             if (!isMobile) {
 
                 const totalFrames = animationRef.current.totalFrames;
@@ -64,6 +65,8 @@ const ArcherScrollAnimation = () => {
                     end: () => "+=" + window.innerHeight * 2.5,
                     scrub: true,
                     pin: true,
+                    pinType: "fixed", // ✅ force real fixed
+                    anticipatePin: 1,
 
                     onUpdate: (self) => {
                         const progress = self.progress;
@@ -122,20 +125,22 @@ const ArcherScrollAnimation = () => {
                 animationRef.current.destroy();
             }
 
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+            return () => {
+                if (animationRef.current) animationRef.current.destroy();
+            };
 
         };
 
     }, []);
 
     return (
-        <section ref={sectionRef} className="archer-wrapper">
+        <section ref={sectionRef} className="archer-wrapper" id="awards">
             <div ref={mainHeadingRef} className="archery_main_heading">
                 <span className="section-sub-title text-uppercase fw-bold">
                     <img src={`${BASE_IMAGE_URL}favicon.png`} alt="" />
                     Awards
                 </span>
-                <ScrollRevealText text="Recognising True Excellence" className="reveal_heading" />
+                <ScrollRevealText text="Recognising True Excellence" className="reveal_heading text-c1 mt-2" />
             </div>
             <div className="w-100">
                 <div className="archer-section">
@@ -144,9 +149,22 @@ const ArcherScrollAnimation = () => {
 
                 <div className="archery_anim_content">
                     <div ref={textRef} className="archer-text">
-                        <img src="./assets/images/ssvm-student-award.gif" alt="" />
-                        <ScrollRevealText text="Studentpreneur Awards 2026" className="reveal_heading" />
-                        <p>The Studentpreneur Awards is an initiative that encourages students to start thinking and acting like entrepreneurs early. It gives them a platform to showcase ideas they are actively working on and motivates them to take action instead of just thinking. The goal is to build confidence, real-world skills, and a mindset of creating and solving problems from a young age.</p>
+                        <img src={`${BASE_IMAGE_URL}ssvm-student-award.gif`} alt="" />
+                        <div data-aos="fade-up">
+                            <ScrollRevealText text="Studentpreneur Awards 2026" className="reveal_heading text-c1" />
+                            <p>The Studentpreneur Awards is an initiative that encourages students to start thinking and acting like entrepreneurs early. It gives them a platform to showcase ideas they are actively working on and motivates them to take action instead of just thinking. The goal is to build confidence, real-world skills, and a mindset of creating and solving problems from a young age.</p>
+                            <div className="col-lg-12 mt-1">
+                                <div className="hero-actions d-flex justify-content-between w-100">
+                                    <div className="d-flex flex-column align-items-center justify-content-center">
+                                        <Link to={"/studentpreneur-award"}>
+                                            <button className="btn-primary ssvm_reg_butt">
+                                                <span>Register</span>
+                                            </button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

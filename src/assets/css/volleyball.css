@@ -61,7 +61,10 @@
 }
 
 .bottom-text h2.heading_about {
-    font-size: 45px !important;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 40px;
+
 }
 
 .volleyball_anim_content h2.heading_about {
@@ -73,7 +76,7 @@
 } */
 
 .middle-text h2 {
-    font-size: 70px;
+    font-size: 60px;
 }
 
 .middle-text {
@@ -120,7 +123,7 @@
 .left_fonder_content h2:last-child {
     font-family: var(--body-font) !important;
     font-size: 17px;
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .left_fonder_content h2 .letter {
@@ -139,9 +142,13 @@
     right: 0;
 }
 
+.basket-section {
+    min-height: 100vh;
+}
+
 @media screen and (min-width: 768px) {
     .basket-section {
-        background-color: #ffffff;
+        /* background-color: #ffffff; */
         position: relative;
     }
 }
@@ -225,6 +232,8 @@
 
     .basket-section {
         position: relative;
+        min-height: auto !important;
+        height: auto !important;
     }
 }
 
@@ -240,8 +249,14 @@
     }
 }
 
-@media (min-width: 992px) and (min-width: 1220px) {
+@media screen and (min-width: 1500px) {
+
+    .bottom-text h2,
     .middle-text h2 {
-        font-size: 60px;
+        font-size: 80px !important;
+    }
+
+    .bottom-text h2 span {
+        line-height: 70px;
     }
 }

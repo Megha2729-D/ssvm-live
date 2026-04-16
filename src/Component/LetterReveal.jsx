@@ -37,7 +37,7 @@ const LetterReveal = ({
                     letter,
                     {
                         x: progress * 3,
-                        skewX: progress * 3,
+                        skewX: 20,
                         opacity: 0,
                     },
                     {
@@ -64,7 +64,7 @@ const LetterReveal = ({
                             {char}
                         </span>
                     ))}
-                    {"\u00A0"}
+                    {wordIndex < text.split(" ").length - 1 && "\u00A0"}
                 </span>
             ))}
         </h2>

@@ -59,6 +59,16 @@ const RunnerStickerAnimation2 = () => {
             }
         });
 
+        // ✅ Refresh ScrollTrigger when Lottie is ready
+        playerRef.current.addEventListener("ready", () => {
+            ScrollTrigger.refresh();
+        });
+
+        playerRef.current.addEventListener("load", () => {
+            ScrollTrigger.refresh();
+        });
+
+
         return () => {
             if (playerRef.current) {
                 playerRef.current.destroy();

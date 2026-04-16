@@ -16,7 +16,7 @@
 }
 
 .guru_award_parent h2 {
-    font-size: 35px;
+    font-size: 42px;
     font-weight: 700;
     margin-bottom: 0 !important;
 }
@@ -116,7 +116,7 @@
     font-size: 0.8rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #F2FF33;
+    /* color: #F2FF33; */
 }
 
 .guru_award_parent .eyebrow-dot {
@@ -244,6 +244,10 @@
     box-shadow: 0 10px 30px #f2ff3333;
 }
 
+.hero-actions .small {
+    font-size: 12px;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
     .guru_award_parent .hero {
@@ -260,6 +264,13 @@
     }
 
     .guru_award_parent h2 {
-        font-size: 21px !important;
+        font-size: 23px !important;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .guru_award_parent h2 {
+        font-size: 20px !important;
     }
 }

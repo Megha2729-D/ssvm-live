@@ -60,6 +60,12 @@ const BasketBallAnimation = () => {
             }
         });
 
+        // ✅ Refresh ScrollTrigger when Lottie is loaded
+        animationRef.current.addEventListener("DOMLoaded", () => {
+            ScrollTrigger.refresh();
+        });
+
+
         return () => {
             if (animationRef.current) {
                 animationRef.current.destroy();

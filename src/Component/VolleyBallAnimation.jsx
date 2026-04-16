@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import lottie from "lottie-web";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollRevealText from "./ScrollRevealText";
 import LetterReveal from "./LetterReveal";
 
@@ -9,6 +9,8 @@ import "../assets/css/volleyball.css";
 import runnerAnimation from "../assets/json/699cbf57a3baf554905772e8_volleyball_desktop.json";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+const BASE_IMAGE_URL = "https://ssvm-new.onrender.com/assets/images/"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,13 +21,14 @@ const VolleyBallAnimation = () => {
     const middleTextRef = useRef(null);
     const centerTextRef = useRef(null);
 
-    // AOS init
-    useEffect(() => {
-        AOS.init({ duration: 1000, once: false, easing: "ease-in-out" });
-    }, []);
+    // AOS is initialized globally in Homepage.jsx
+    // useEffect(() => {
+    //     // Refresh ScrollTrigger when this component mounts to account for its height
+    //     ScrollTrigger.refresh();
+    // }, []);
     useEffect(() => {
         const handleResize = () => {
-            ScrollTrigger.refresh();
+            // ScrollTrigger.refresh();
         };
 
         window.addEventListener("resize", handleResize);
@@ -35,25 +38,27 @@ const VolleyBallAnimation = () => {
         };
     }, []);
     useEffect(() => {
-        const isMobile = window.innerWidth < 768; // check for mobile
+        const isMobile = window.innerWidth < 768;
         if (isMobile) {
-            // Mobile: show text statically
             gsap.set(bottomTextRef.current, { opacity: 1, y: 0 });
             gsap.set(middleTextRef.current, { opacity: 1, y: 0 });
             gsap.set(centerTextRef.current, { opacity: 1, y: 0 });
-            return; // Skip animation & ScrollTrigger
+            return;
         }
 
-        // Desktop: normal animation
         let animation;
         let bottomTween = null;
-        let middleTween = null;  // added
+        let middleTween = null;
         let centerTween = null;
-
         let bottomHidden = false;
-        let middleShown = false; // added
+        let middleShown = false;
         let centerShown = false;
 
+        // ✅ Robust Refresh Function
+        const safeRefresh = () => {
+            document.body.getBoundingClientRect(); // Force layout
+            ScrollTrigger.refresh();
+        };
 
         animation = lottie.loadAnimation({
             container: lottieContainer.current,
@@ -63,10 +68,21 @@ const VolleyBallAnimation = () => {
             animationData: runnerAnimation,
         });
 
+        // ✅ Watch for container size changes (fixes collapse on slow loads)
+        const ro = new ResizeObserver(() => {
+            window.requestAnimationFrame(() => {
+                safeRefresh();
+            });
+        });
+        if (sectionRef.current) ro.observe(sectionRef.current);
+
         animation.addEventListener("DOMLoaded", () => {
+            // ✅ Double refresh to catch final layout
+            safeRefresh();
+            setTimeout(safeRefresh, 100);
+            
             const totalFrames = animation.totalFrames;
 
-            // Initial states
             gsap.set(bottomTextRef.current, { opacity: 1, y: 0 });
             gsap.set(middleTextRef.current, { opacity: 0, y: 0 });
             gsap.set(centerTextRef.current, { opacity: 0, y: 60, scale: 0.1 });
@@ -77,22 +93,18 @@ const VolleyBallAnimation = () => {
                 end: () => "+=" + window.innerHeight * 1.48,
                 scrub: true,
                 pin: true,
+                pinSpacing: true,
                 anticipatePin: 1,
+                invalidateOnRefresh: true,
 
                 onUpdate: (self) => {
                     const progress = self.progress;
-                    const startOffset = 0; // animation starts earlier (20%)
-                    const adjustedProgress = Math.min(Math.max((progress + startOffset), 0), 1);
-
-                    // const frame = Math.round(adjustedProgress * (totalFrames - 1));
-                    // animation.goToAndStop(frame, true);
-                    const slowFactor = 0.8; // 🔥 5% slower
-
+                    const slowFactor = 0.8;
                     const slowedProgress = Math.min(progress * slowFactor, 1);
-
                     const frame = Math.round(slowedProgress * (totalFrames - 1));
+                    
                     animation.goToAndStop(frame, true);
-                    /* -------- Bottom text hide gradually (20% → 59%) -------- */
+
                     if (progress > 0.53 && !bottomHidden) {
                         bottomHidden = true;
                         if (bottomTween) bottomTween.kill();
@@ -115,8 +127,7 @@ const VolleyBallAnimation = () => {
                         });
                     }
 
-                    /* -------- Middle text appears after bottom hides (40% → 35%) -------- */
-                    if (progress > 0.7 && progress < 0.97 && !centerShown && !middleShown) {
+                    if (progress > 0.75 && progress < 0.96 && !centerShown && !middleShown) {
                         middleShown = true;
                         if (middleTween) middleTween.kill();
                         middleTween = gsap.to(middleTextRef.current, {
@@ -127,7 +138,7 @@ const VolleyBallAnimation = () => {
                         });
                     }
 
-                    if ((progress <= 0.7 || progress >= 0.97) && middleShown) {
+                    if ((progress <= 0.75 || progress >= 0.96) && middleShown) {
                         middleShown = false;
                         if (middleTween) middleTween.kill();
                         middleTween = gsap.to(middleTextRef.current, {
@@ -138,7 +149,6 @@ const VolleyBallAnimation = () => {
                         });
                     }
 
-                    /* -------- Center text appear after 65% -------- */
                     if (progress > 0.95 && !centerShown) {
                         centerShown = true;
                         if (centerTween) centerTween.kill();
@@ -163,34 +173,11 @@ const VolleyBallAnimation = () => {
                         });
                     }
 
-                    /* -------- Background color change -------- */
                     if (progress >= 0.9) {
                         gsap.to(sectionRef.current, { backgroundColor: "#F2FF33", duration: 0.5 });
                     } else {
                         gsap.to(sectionRef.current, { backgroundColor: "", duration: 0.5 });
                     }
-
-                    // 🔥 LETTER CONTROL (middle text)
-                    // const lines = middleTextRef.current.querySelectorAll(".main_heading_about");
-
-                    // if (progress > 0.5 && progress < 0.9) {
-                    //     const localProgress = (progress - 0.5) / (0.9 - 0.5);
-
-                    //     lines.forEach((line, lineIndex) => {
-                    //         const letters = line.querySelectorAll(".letter");
-
-                    //         letters.forEach((letter, i) => {
-                    //             const delay = (lineIndex * 0.2) + (i * 0.04); // line + letter delay
-                    //             const p = Math.min(Math.max(localProgress - delay, 0), 1);
-
-                    //             gsap.set(letter, {
-                    //                 x: (1 - p) * 3,
-                    //                 skewX: (1 - p) * 3,
-                    //                 opacity: p,
-                    //             });
-                    //         });
-                    //     });
-                    // }
                 },
                 onLeave: () => {
                     animation.goToAndStop(totalFrames - 1, true);
@@ -199,14 +186,15 @@ const VolleyBallAnimation = () => {
         });
 
         return () => {
-            if (animation) animation.destroy();
+            animation?.destroy();
+            ro.disconnect();
             ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
         };
     }, []);
 
     return (
         <section ref={sectionRef} className="basket-section h-100">
-            {!window.innerWidth < 768 && (
+            {window.innerWidth >= 768 && (
                 <div className="basket-wrapper">
                     <div ref={lottieContainer} className="basket-lottie"></div>
                 </div>
@@ -214,15 +202,15 @@ const VolleyBallAnimation = () => {
 
             <div className="volleyball_anim_content">
                 {/* Bottom Left Text */}
-                <div ref={bottomTextRef} className="bottom-text me-lg-0 me-3">
-                    <LetterReveal text="Shape Tomorrow Through Action" className="heading_about small_sm_abt_heading" />
+                <div ref={bottomTextRef} className="bottom-text me-lg-0 me-3 d-none d-md-block">
+                    <LetterReveal text="Shape Tomorrow Through Action" className="heading_about text-c1 small_sm_abt_heading" />
                 </div>
                 {/* <div ref={bottomTextRef} className="bottom-text me-lg-0 me-3">
                     <ScrollRevealText text="Transforming India Conclave 2026" className="reveal_heading main_heading_about" />
                     <ScrollRevealText text="FlEX YOUR FUTURE 2026" className="reveal_heading" />
                 </div> */}
                 {/* Middle Text */}
-                <div ref={middleTextRef} className="middle-text">
+                <div ref={middleTextRef} className="middle-text d-none d-md-flex" style={{ opacity: 0 }}>
                     <LetterReveal
                         text="Ssvm Transforming"
                         className="heading_about main_heading_about"
@@ -234,7 +222,7 @@ const VolleyBallAnimation = () => {
                         className="heading_about main_heading_about"
                     />
 
-                    {/* <ScrollRevealText text="Transforming" className="reveal_heading" />
+                    {/* <ScrollRevealText text="Ssvm Transforming" className="reveal_heading" />
                     <ScrollRevealText text="India Conclave" className="reveal_heading" />
                     <ScrollRevealText text="2026" className="reveal_heading" /> */}
                 </div>
@@ -243,18 +231,22 @@ const VolleyBallAnimation = () => {
                 <div ref={centerTextRef} className="center-text">
                     <div className="row justify-content-center">
 
-                        <div className="col-lg-7">
-                            <img src="./assets/images/founder-anim.gif" data-aos="zoom-in" data-aos-delay="100" className="w-100" alt="" />
+                        <div className="col-lg-6">
+                            <img src={`${BASE_IMAGE_URL}ssvm-founder-anim.gif`} data-aos="zoom-in" data-aos-delay="100" className="w-100" alt="" />
                         </div>
                         <div className="left_fonder_content col-lg-12 d-flex flex-column align-items-center justify-content-center">
-                            <LetterReveal
-                                text="Dr. Manimekalai Mohan"
-                                className="main_heading_about"
-                            />
-                            <LetterReveal
-                                text="Founder, SSVM Institutions"
-                                className="main_heading_about"
-                            />
+                            <div data-aos="fade-up">
+                                <h2 className="main_heading_about">Dr. Manimekalai Mohan</h2>
+                                <h2 className="main_heading_about">Founder, SSVM Institutions</h2>
+                                {/* <LetterReveal
+                                    text="Dr. Manimekalai Mohan"
+                                    className="main_heading_about"
+                                />
+                                <LetterReveal
+                                    text="Founder, SSVM Institutions"
+                                    className="main_heading_about"
+                                /> */}
+                            </div>
                             {/* <ScrollRevealText text="Dr. Manimekalai Mohan" className="reveal_heading" />
                             <ScrollRevealText text="Founder, SSVM Institutions" className="reveal_heading" /> */}
                         </div>

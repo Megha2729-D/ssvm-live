@@ -1,28 +1,24 @@
 import React, { useRef, useState, useEffect } from "react";
 import CustomCursor from "../Component/Cursor";
 import TextReveal from "../Component/TextReveal";
-import TextRevealSample from "../Component/sample";
 import { Autoplay, FreeMode } from "swiper/modules";
 
 import LetterReveal from "../Component/LetterReveal";
-
-// import BasketBallAnimation from "../Component/BasketBallAnimation"
-// import BasketBallAnimation1 from "../Component/BasketBallAnimation1"
-// import RunnerStickerAnimation from "../Component/RunnerStickerAnimation"
-// import RunnerStickerAnimation2 from "../Component/RunnerStickerAnimation2"
+import MattersSection from "../Component/MattersSection";
 
 import FencingStickerAnimation from "../Component/FencingStickerAnimation"
 import ScrollRevealText from "../Component/ScrollRevealText";
 import SportsAnimation from "../Component/SportsAnimation";
 import VolleyBallAnimation from "../Component/VolleyBallAnimation";
+import MobileBallAnimation from "../Component/MobileBallAnimation";
+
 import HorseAnimation from "../Component/HorseAnimation";
 import ArcherScrollAnimation from "../Component/ArcherScrollAnimation";
-
 import GuruAward from "../Component/GuruAward";
+
+import GuruAwardAnimation from "../Component/GuruAwardAnimation";
 import SpeakerSwiper from "../Component/SpeakerSwiper";
-// import ParallaxSlider from "../Component/ParallaxSlider";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import CycleAnimation from "../Component/CycyleAnimation";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -30,13 +26,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-cards";
-const BASE_IMAGE_URL = "https://ssvm-main.onrender.com/assets/images/"
+const BASE_IMAGE_URL = "https://ssvm-new.onrender.com/assets/images/"
 const images = [
-    // "https://ssvm-main.onrender.com/assets/images/banner/image-1.jpg",
-    "https://ssvm-main.onrender.com/assets/images/banner/image-2.jpg",
-    "https://ssvm-main.onrender.com/assets/images/banner/image-3.jpg",
-    "https://ssvm-main.onrender.com/assets/images/banner/image-4.jpg",
-    "https://ssvm-main.onrender.com/assets/images/banner/image-5.jpg",
+    // "https://ssvm-new.onrender.com/assets/images/banner/image-1.jpg",
+    "https://ssvm-new.onrender.com/assets/images/banner/image-2.jpg",
+    "https://ssvm-new.onrender.com/assets/images/banner/image-3.jpg",
+    "https://ssvm-new.onrender.com/assets/images/banner/image-4.jpg",
+    "https://ssvm-new.onrender.com/assets/images/banner/image-5.jpg",
 ];
 
 const slides = [
@@ -146,7 +142,9 @@ const Homepage = () => {
                     // video ended → next
                     setIndex((prev) => (prev + 1) % videos.length);
                 }
-            } catch (e) { }
+            } catch (e) {
+                console.clear();
+            }
         };
 
         window.addEventListener("message", handleMessage);
@@ -156,6 +154,7 @@ const Homepage = () => {
     useEffect(() => {
         if (videoRef.current) {
             videoRef.current.play().catch((err) => {
+                console.clear();
                 console.log("Autoplay blocked:", err);
             });
         }
@@ -266,17 +265,15 @@ const Homepage = () => {
 
     return (
         <>
-            <CustomCursor />
             <section id="home">
                 <div className="main_content">
                     <div className="top_section">
-                        <Navbar />
                         <div className="section_container banner_content_parent">
                             <div className="row justify-content-center pb-4">
                                 <div className="col-lg-8">
                                     <div className="row justify-content-center">
-                                        <div className="col-lg-5 py-3">
-                                            <img src="./assets/images/thug-of-war.gif" className="w-100" alt="" />
+                                        <div className="col-lg-3 col-6 py-3">
+                                            <img src={`${BASE_IMAGE_URL}thug-of-war.gif`} className="w-100" alt="" />
                                             {/* <FencingStickerAnimation /> */}
                                         </div>
                                     </div>
@@ -284,7 +281,7 @@ const Homepage = () => {
                                         <div className="anim_heading_wrapper" onMouseMove={handleMouseMove}>
                                             {/* <img src="/assets/images/ring_theme.png" alt="Yellow Oval" className="yellow-oval" /> */}
                                             <div className="anim_heading">
-                                                <img src="./assets/images/banner-anim-cont.gif" className="w-100" alt="" />
+                                                <img src={`${BASE_IMAGE_URL}banner-anim-cont.gif`} className="w-100" alt="" />
                                                 {/* <TextReveal text="Flex" className="banner_text" />
                                                 <TextReveal text=" Your" className="banner_text" />
                                                 <TextReveal text=" Future" className="banner_text" /> */}
@@ -338,31 +335,58 @@ const Homepage = () => {
                     </div>
                 )}
             </section>
+            <MobileBallAnimation />
             <VolleyBallAnimation />
+            <section>
+                <div className="marquee-strip">
+                    <div className="marquee-inner">
+                        <h2 className="event-strip">
+                            <span>September</span>
+                            <span className="lit">2026</span>
+                            <span>Location: </span>
+                            <span className="lit">SSVM World School, Coimbatore</span>
+                            <span className="divider">|</span>
+
+                            <span>September</span>
+                            <span className="lit">2026</span>
+                            <span>Location: </span>
+                            <span className="lit">SSVM World School, Coimbatore</span>
+                            <span className="divider">|</span>
+
+
+                        </h2>
+                    </div>
+                </div>
+            </section>
             <HorseAnimation />
-            {/* <div className="position-relative ">
+            <div className="position-relative " id="speakers">
                 <SpeakerSwiper />
-            </div> */}
+            </div>
             <ArcherScrollAnimation />
-            <GuruAward />
+            {/* <section className="position-relative">
+                <GuruAwardAnimation />
+            </section> */}
+            <div data-aos="zoom-in">
+                <GuruAward />
+            </div>
             {/* <section className="pt-5 features_section">
                 <div className="features_content">
                     <div className="section_container">
                         <div className="features_header">
-                            <span className="section-sub-title text-uppercase small fw-bold">
+                            <span className="section-sub-title text-white text-uppercase small fw-bold">
                                 <img src={`${BASE_IMAGE_URL}favicon.png`} alt="" />
                                 Inside SSVM
                             </span>
-                            <ScrollRevealText text="Areas of Inspiration" className="reveal_heading" />
+                            <ScrollRevealText text="Areas of Inspiration" className="reveal_heading text-white" />
                         </div>
-                        <div className="row">
+                        <div className="row mt-4">
                             <div className="col-lg-3 d-flex align-items-center justify-content-lg-start justify-content-center">
                                 <div className="kid_play_img">
-                                    <img src="./assets/images/basket-kid.png" loading="lazy"
+                                    <img src="./assets/images/anim-playing-kid.png" loading="lazy"
                                         style={{ opacity: "1" }} alt="" className="hero_bam-dunk bam-glitch glitching" />
                                 </div>
                             </div>
-                            <div className="col-lg-9 d-flex align-items-center">
+                            <div className="col-lg-9 d-flex align-items-center mt-4 mt-lg-0">
                                 <div>
                                     <div className="row column-gap-5">
                                         <div className="col-lg-3 col-6 d-flex flex-column justify-content-center align-items-center" data-aos="zoom-in">
@@ -404,6 +428,7 @@ const Homepage = () => {
                     </div>
                 </div>
             </section> */}
+            {/* <CycleAnimation /> */}
             {/* <section className="pt-5 features_section">
                 <div className="features_content">
                     <div className="section_container">
@@ -430,7 +455,62 @@ const Homepage = () => {
                     </div>
                 </div>
             </section> */}
-            <section className="about_section">
+            {/* <section className="about_section">
+                <div className="section_container text-white py-5">
+                    <div className="row g-4 py-5 justify-content-center align-items-stretch">
+                        <div className="col-xl-6">
+                            <div className="about__content">
+                                <div className="section-header">
+                                    <span className="section-sub-title text-uppercase small text-white fw-bold">
+                                        <img src={`${BASE_IMAGE_URL}favicon.png`} alt="" />
+                                        About Us
+                                    </span>
+                                    <ScrollRevealText text="About ssvm Institutions" className="reveal_heading" />
+                                    <p>
+                                        SSVM Institutions have consistently stood at the intersection of academic excellence and future-focused education. With a strong belief that education must extend beyond classrooms, SSVM has built a culture that nurtures curiosity, leadership, and real-world thinking.
+                                    </p>
+                                    <p>
+                                        Across campuses, the focus has always been clear: shape individuals who don’t just succeed in exams, but thrive in life. From entrepreneurship and innovation to sports and holistic development, SSVM students are encouraged to explore, experiment, and evolve.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-xl-5 d-flex align-items-center">
+                            <div className="about__thumbs" data-aos="zoom-in">
+                                <img src="https://ssvm-2o-d4pw.vercel.app/_next/image?url=https%3A%2F%2Fssvmtransformationindia.s3.ap-south-1.amazonaws.com%2Fimages%2Fabout.jpg&w=640&q=75" className="w-100 rounded-3" alt="" />
+                              <div className="thumb-column thumb-column-1">
+                                    <div className="thumb-1 h-100 thumb bounce-y-down">
+                                        <img
+                                            src={`${BASE_IMAGE_URL}about1.jpeg`}
+                                            alt=""
+                                            className="w-100"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="thumb-column thumb-column-2">
+                                    <div className="thumb-2 thumb bounce-x">
+                                        <img
+                                            src={`${BASE_IMAGE_URL}about2.jpg`}
+                                            alt=""
+                                            className="w-100"
+                                        />
+                                    </div>
+                                    <div className="thumb-3 thumb bounce-y-up">
+                                        <img
+                                            src={`${BASE_IMAGE_URL}about3.jpg`}
+                                            alt=""
+                                            className="w-100"
+                                        />
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> */}
+            <section className="about_section py-3">
                 <div className="section_container text-white py-5">
                     <div className="about_box">
                         <div className="row g-4 align-items-center">
@@ -450,23 +530,22 @@ const Homepage = () => {
                             <div className="col-xl-6">
                                 <div className="about__content ps-4">
 
-                                    <span className="section-sub-title">
+                                    <span className="section-sub-title fw-bold text-white">
                                         <img src={`${BASE_IMAGE_URL}favicon.png`} alt="" />
                                         About Us
                                     </span>
 
-                                    <h2 className="about_heading">
-                                        About <span>SSVM Institutions</span>
-                                    </h2>
-
-                                    <p className="mt-4">
-                                        SSVM Institutions have consistently stood at the intersection of academic excellence and future-focused education. With a strong belief that education must extend beyond classrooms, SSVM has built a culture that nurtures curiosity, leadership, and real-world thinking.
-                                    </p>
-
-                                    <p>
-                                        Across campuses, the focus has always been clear: shape individuals who don’t just succeed in exams, but thrive in life. From entrepreneurship and innovation to sports and holistic development, SSVM students are encouraged to explore, experiment, and evolve.
-                                    </p>
-
+                                    <div data-aos="fade-up">
+                                        <h2 className="about_heading text-c1">
+                                            About SSVM Institutions
+                                        </h2>
+                                        <p className="mt-4">
+                                            SSVM Institutions have consistently stood at the intersection of academic excellence and future-focused education. With a strong belief that education must extend beyond classrooms, SSVM has built a culture that nurtures curiosity, leadership, and real-world thinking.
+                                        </p>
+                                        <p>
+                                            Across campuses, the focus has always been clear: shape individuals who don’t just succeed in exams, but thrive in life. From entrepreneurship and innovation to sports and holistic development, SSVM students are encouraged to explore, experiment, and evolve.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -474,14 +553,16 @@ const Homepage = () => {
                 </div>
             </section>
             <section>
-                <div className="py-4 media_coverage">
-                    <LetterReveal text="Media Coverage" className="heading_about text-center text-white small_sm_abt_heading" />
-                    <div className="pt-4">
+                <div className="pb-4 media_coverage">
+                    <div data-aos="fade-up" data-aos-delay="200">
+                        <LetterReveal text="Media Coverage" className="heading_about text-c1 text-center small_sm_abt_heading" />
+                    </div>
+                    <div className="pt-4" data-aos="fade-up" data-aos-delay="300">
                         <Swiper
                             modules={[Autoplay, FreeMode]}
                             loop={true}
                             freeMode={true}
-                            speed={4000}              // control flow speed
+                            speed={4000}
                             autoplay={{
                                 delay: 0,               // no pause
                                 disableOnInteraction: false,
@@ -509,7 +590,7 @@ const Homepage = () => {
                                     slidesPerView: 6,
                                 },
                             }}
-                            spaceBetween={30}
+                            spaceBetween={50}
                             allowTouchMove={false}
                         >
                             {slides.map((item) => (
@@ -524,9 +605,11 @@ const Homepage = () => {
                 </div>
             </section>
             <section>
-                <div className="py-4 section_container">
-                    <LetterReveal text="Past Edition Highlights" className="heading_about text-center text-white small_sm_abt_heading" />
-                    <div className="row g-4 mt-4">
+                <div className="py-5 section_container">
+                    <div data-aos="fade-up" data-aos-delay="200">
+                        <LetterReveal text="Past Edition Highlights" className="heading_about text-center text-c1 small_sm_abt_heading" />
+                    </div>
+                    <div className="row g-4 mt-4" data-aos="fade-up" data-aos-delay="300">
                         {videos.map((id, i) => (
                             <div className="col-md-4 my-4" key={i}>
                                 <iframe
@@ -544,7 +627,7 @@ const Homepage = () => {
                     </div>
                 </div>
             </section>
-            <Footer />
+            <MattersSection />
         </>
     );
 };

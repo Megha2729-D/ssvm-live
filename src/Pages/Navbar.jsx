@@ -1,8 +1,9 @@
 import { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import "../assets/css/navbar.css";
 
-const BASE_IMAGE_URL = "https://ssvm-main.onrender.com/assets/images/";
+const BASE_IMAGE_URL = "https://ssvm-new.onrender.com/assets/images/";
 
 const Navbar = () => {
     const navRef = useRef(null);
@@ -12,30 +13,30 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     // Scroll hide/show navbar (your existing logic)
-    useEffect(() => {
-        const nav = navRef.current;
-        let lastScroll = 0;
+    // useEffect(() => {
+    //     const nav = navRef.current;
+    //     let lastScroll = 0;
 
-        const handleScroll = () => {
-            const currentScroll = window.scrollY;
+    //     const handleScroll = () => {
+    //         const currentScroll = window.scrollY;
 
-            if (currentScroll <= 10) {
-                nav.classList.remove("navbar-fixed");
-                return;
-            }
+    //         if (currentScroll <= 10) {
+    //             nav.classList.remove("navbar-fixed");
+    //             return;
+    //         }
 
-            if (currentScroll < lastScroll) {
-                nav.classList.add("navbar-fixed");
-            } else {
-                nav.classList.remove("navbar-fixed");
-            }
+    //         if (currentScroll < lastScroll) {
+    //             nav.classList.add("navbar-fixed");
+    //         } else {
+    //             nav.classList.remove("navbar-fixed");
+    //         }
 
-            lastScroll = currentScroll;
-        };
+    //         lastScroll = currentScroll;
+    //     };
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    //     window.addEventListener("scroll", handleScroll);
+    //     return () => window.removeEventListener("scroll", handleScroll);
+    // }, []);
 
     // Body scroll lock + animation
     useEffect(() => {
@@ -89,14 +90,9 @@ const Navbar = () => {
 
                     {/* LEFT LOGO */}
                     <div className="logo left_logo">
-                        <video
-                            src={`${BASE_IMAGE_URL}logo-vid.mp4`}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="logo-video"
-                        />
+                        <Link to={"/"}>
+                            <img src={`${BASE_IMAGE_URL}logo-video.gif`} className="logo-video" alt="" />
+                        </Link>
                     </div>
 
                     {/* DESKTOP NAV */}
@@ -138,7 +134,7 @@ const Navbar = () => {
 
                 <div className="w-100 d-flex justify-content-between">
                     <div className="nav_logo">
-                        <img src="./assets/images/logo-white.png" className="w-100" alt="" />
+                        <img src={`${BASE_IMAGE_URL}logo-white.png`} className="w-100" alt="" />
                     </div>
                     <button
                         className="close_btn"

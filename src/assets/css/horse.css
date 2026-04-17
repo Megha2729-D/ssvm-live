@@ -200,7 +200,7 @@
     }
 
     .missin_inner_part .mission_shape::before {
-        width: 175%;
+        width: 185%;
     }
 
     .mission_inner_content {
@@ -208,9 +208,34 @@
     }
 }
 
+@media (min-width:500px) and (max-width: 2110px) {
+    .missin_inner_part .mission_shape::before {
+        height: 120vh;
+        bottom: 160px;
+        left: -200px;
+    }
+
+    .missin_inner_part h2 {
+        font-size: 31px;
+    }
+
+    .mission_inner_content {
+        padding: 0 50px;
+    }
+
+    .missin_inner_part p {
+        font-size: 12px !important;
+    }
+}
+
 @media screen and (min-width: 1400px) {
     .missin_inner_part .mission_shape::before {
-        height: 93vh;
+        height: 100vh;
+        left: -300px;
+    }
+
+    .mission_inner_content {
+        padding: 0 50px;
     }
 
     .missin_inner_part::before {
@@ -225,6 +250,7 @@
 
 @media screen and (max-width: 400px) {
     .missin_inner_part .mission_shape::before {
-        width: 190%;
+        width: 205%;
+        height: 120vh;
     }
 }

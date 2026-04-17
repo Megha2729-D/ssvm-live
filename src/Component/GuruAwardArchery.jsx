@@ -166,14 +166,14 @@ const GuruAwardArchery = () => {
                                 The Inspirational Guru Awards honour educators who go beyond teaching subjects—and instead shape mindsets, character, and confidence.
                             </p>
                             <div className="col-lg-12 guru_award_parent">
-                                <div className="d-flex justify-content-between w-100">
-                                    <div className="d-flex flex-column align-items-center justify-content-center">
+                                <div className="d-flex flex-lg-row flex-column justify-content-between w-100">
+                                    <div className="d-flex flex-column align-items-center justify-content-center mt-lg-0 mt-2 ">
                                         <button onClick={() => handleAwardSelect('guru', 'internal')} className="btn-primary">
                                             <span>Register – Internal</span>
                                         </button>
                                         <small className="mt-3 px-2 text-white text-center small">Internal Category – Open to students from SSVM Institutions</small>
                                     </div>
-                                    <div onClick={() => handleAwardSelect('guru', 'external')} className="d-flex flex-column align-items-center justify-content-center">
+                                    <div onClick={() => handleAwardSelect('guru', 'external')} className="mt-lg-0 mt-4 d-flex flex-column align-items-center justify-content-center">
                                         <button className="btn-ghost">
                                             <span>Register – External</span>
                                         </button>

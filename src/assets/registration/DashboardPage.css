@@ -1,7 +1,7 @@
 :root {
     --sidebar-width: 280px;
     --sidebar-collapsed-width: 80px;
-    --primary-maroon: #631542;
+    --primary-maroon: #e72142;
     --accent-yellow: #F2FF33;
     --bg-main: #f4f7fe;
     --card-bg: #ffffff;
@@ -135,6 +135,7 @@
 }
 
 .nav-item {
+    padding: 12px 15px;
     border-radius: 12px;
     display: flex;
     align-items: center;

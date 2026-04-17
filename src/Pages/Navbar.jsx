@@ -72,13 +72,13 @@ const Navbar = () => {
     }, [menuOpen]);
 
     const handleScrollTo = (id) => {
-        const el = document.getElementById(id);
-        if (!el) return;
+            const el = document.getElementById(id);
+            if (!el) return;
 
-        el.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-        });
+            el.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
 
         setMenuOpen(false); // close mobile menu if open
     };
@@ -106,11 +106,11 @@ const Navbar = () => {
 
                     {/* RIGHT SIDE */}
                     <div className="right_area">
-                        <img
-                            src={`${BASE_IMAGE_URL}initiative-logo.png`}
-                            className="initiative_logo"
-                            alt="initiative"
-                        />
+                            <img
+                                src={`${BASE_IMAGE_URL}initiative-logo.png`}
+                                className="initiative_logo"
+                                alt="initiative"
+                            />
                     </div>
                     <button
                         className="hamburger"

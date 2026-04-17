@@ -1053,18 +1053,6 @@ h2.heading_about {
   }
 }
 
-@media (min-width: 500px) and (max-width: 1110px) {
-
-  p,
-  .hero-text li {
-    font-size: 12px;
-  }
-
-  .section-sub-title {
-    font-size: 12px;
-  } 
-}
-
 @media screen and (max-width: 991px) {
   .section-sub-title {
     font-size: 13px !important;

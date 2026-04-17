@@ -42,80 +42,80 @@ const ArcherScrollAnimation = () => {
         const isMobile = window.innerWidth < 768;
         const animationData = isMobile ? archerMobile : archerDesktop;
 
-        animationRef.current = lottie.loadAnimation({
-            container: lottieContainer.current,
-            renderer: "svg",
-            loop: isMobile,
-            autoplay: isMobile,
-            animationData: animationData,
-            rendererSettings: {
-                preserveAspectRatio: "xMidYMid meet"
-            }
-        });
+            animationRef.current = lottie.loadAnimation({
+                container: lottieContainer.current,
+                renderer: "svg",
+                loop: isMobile,
+                autoplay: isMobile,
+                animationData: animationData,
+                rendererSettings: {
+                    preserveAspectRatio: "xMidYMid meet"
+                }
+            });
 
-        animationRef.current.addEventListener("DOMLoaded", () => {
-            ScrollTrigger.refresh();
-            if (!isMobile) {
+            animationRef.current.addEventListener("DOMLoaded", () => {
+                ScrollTrigger.refresh();
+                if (!isMobile) {
 
-                const totalFrames = animationRef.current.totalFrames;
+                    const totalFrames = animationRef.current.totalFrames;
 
-                ScrollTrigger.create({
-                    trigger: sectionRef.current,
-                    start: "top top",
-                    end: () => "+=" + window.innerHeight * 2.5,
-                    scrub: true,
-                    pin: true,
+                    ScrollTrigger.create({
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: () => "+=" + window.innerHeight * 2.5,
+                        scrub: true,
+                        pin: true,
                     pinType: "fixed", // ✅ force real fixed
-                    anticipatePin: 1,
+                        anticipatePin: 1,
 
-                    onUpdate: (self) => {
-                        const progress = self.progress;
-                        const frame = totalFrames * progress;
+                        onUpdate: (self) => {
+                            const progress = self.progress;
+                            const frame = totalFrames * progress;
 
                         // Lottie control
-                        if (progress >= 1) {
-                            animationRef.current.goToAndStop(totalFrames - 1, true);
-                        } else {
-                            animationRef.current.goToAndStop(frame, true);
-                        }
+                            if (progress >= 1) {
+                                animationRef.current.goToAndStop(totalFrames - 1, true);
+                            } else {
+                                animationRef.current.goToAndStop(frame, true);
+                            }
 
                         // TEXT SHOW / HIDE (existing)
-                        if (progress >= 0.4) {
-                            gsap.to(textRef.current, {
-                                opacity: 1,
-                                y: 0,
-                                duration: 0.6,
-                                ease: "power3.out",
-                                overwrite: true
-                            });
-                        } else {
-                            gsap.to(textRef.current, {
-                                opacity: 0,
-                                y: 40,
-                                duration: 0.4,
-                                overwrite: true
-                            });
-                        }
+                            if (progress >= 0.4) {
+                                gsap.to(textRef.current, {
+                                    opacity: 1,
+                                    y: 0,
+                                    duration: 0.6,
+                                    ease: "power3.out",
+                                    overwrite: true
+                                });
+                            } else {
+                                gsap.to(textRef.current, {
+                                    opacity: 0,
+                                    y: 40,
+                                    duration: 0.4,
+                                    overwrite: true
+                                });
+                            }
 
                         // ⭐ NEW: MAIN HEADING FADE (0% → 10%)
-                        if (progress >= 0.1) {
-                            gsap.to(mainHeadingRef.current, {
-                                opacity: 0,
-                                y: -20,
-                                duration: 0.4,
-                                overwrite: true
-                            });
-                        } else {
-                            gsap.to(mainHeadingRef.current, {
-                                opacity: 1,
-                                y: 0,
-                                duration: 0.4,
-                                overwrite: true
-                            });
+                            if (progress >= 0.1) {
+                                gsap.to(mainHeadingRef.current, {
+                                    opacity: 0,
+                                    y: -20,
+                                    duration: 0.4,
+                                    overwrite: true
+                                });
+                            } else {
+                                gsap.to(mainHeadingRef.current, {
+                                    opacity: 1,
+                                    y: 0,
+                                    duration: 0.4,
+                                    overwrite: true
+                                });
+                            }
                         }
-                    }
-                });
-            }
+                    });
+                }
 
         });
 

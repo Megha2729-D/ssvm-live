@@ -118,6 +118,7 @@
     font-weight: 700;
 }
 
+
 .mission-title {
     font-size: 50px;
     margin-bottom: 15px;
@@ -204,12 +205,6 @@
 
     .mission_inner_content {
         padding: 0 10px;
-    }
-}
-
-@media (min-width: 900px) and (max-width: 1110px) {
-    .missin_inner_part h2 {
-        font-size: 30px !important;
     }
 }
 

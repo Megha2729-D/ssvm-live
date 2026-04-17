@@ -116,7 +116,7 @@ const Footer = () => {
 
                 <div className="footer-bottom">
                     <p className="mb-0 fw-bold">© 2026 . All rights reserved SSVM.</p>
-                    <p className="mb-0 fw-bold footer-credit">Designed by <span>IQTechway</span></p>
+                    <p className="mb-0 fw-bold footer-credit">Designed by <span><a href="https://iqtechway.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>IQTechway</a></span></p>
                 </div>
             </div>
 

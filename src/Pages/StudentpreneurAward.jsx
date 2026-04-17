@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import TitleReveal from "../Component/TitleReveal";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useNavigate } from 'react-router-dom';
 
 import "../assets/css/StudentpreneurAward.css";
 
@@ -83,6 +84,14 @@ const sectionsData = [
 ];
 
 const StudentpreneurAward = () => {
+
+    const navigate = useNavigate();
+
+    const handleAwardSelect = (category, type = '') => {
+        const typeParam = type ? `&type=${type}` : '';
+        navigate(`/register?category=${category}${typeParam}`);
+    };
+
     const containerRef = useRef();
     const footerRef = useRef();
 
@@ -273,13 +282,13 @@ const StudentpreneurAward = () => {
                     <div className="fixed-cta guru_award_parent">
                         <div className="row">
                             <div className="col-lg-6 d-flex flex-column justify-content-center align-items-center">
-                                <button className="btn-primary">
+                                <button onClick={() => handleAwardSelect('studentpreneur', 'internal')} className="btn-primary">
                                     <span>Register – Internal</span>
                                 </button>
                                 <p className="mb-0 text-white text-center small mt-2">Internal Category – Open to students from SSVM Institutions</p>
                             </div>
                             <div className="col-lg-6 mt-lg-0 mt-4 d-flex flex-column justify-content-center align-items-center">
-                                <button className="btn-ghost">
+                                <button onClick={() => handleAwardSelect('studentpreneur', 'external')} className="btn-ghost">
                                     <span>Register – External</span>
                                 </button>
                                 <p className="mb-0 text-white text-center small mt-2">External Category – Open to students from other schools and institutions</p>

@@ -1,10 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import '../assets/registration/RegistrationForm.css';
 
 const RegistrationForm = () => {
+    const location = useLocation();
     const [step, setStep] = useState(1);
-    const [mainCategory, setMainCategory] = useState(''); // 'guru' or 'studentpreneur'
+    
+    // Synchronous Initialization from URL params
+    const [mainCategory, setMainCategory] = useState(() => {
+        return new URLSearchParams(window.location.search).get('category') || '';
+    });
+    const [filterType, setFilterType] = useState(() => {
+        return new URLSearchParams(window.location.search).get('type') || '';
+    });
+
     const [formData, setFormData] = useState({
         awardGroup: '',
         nominationType: '',
@@ -27,12 +37,38 @@ const RegistrationForm = () => {
         references: '',
         achievements: '',
         whyJoin: '',
+        // Studentpreneur Specific
+        schoolCity: '',
+        schoolEmail: '',
+        businessIdea: '',
+        totalMembers: '',
+        grade: '',
+        schoolPhone: '',
         termsAccepted: false
     });
 
     const [submitted, setSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [regNumber, setRegNumber] = useState('');
     const formRef = useRef(null);
+
+    // Auto-select if unique filter
+    useEffect(() => {
+        if (mainCategory && filterType && awardTypes[mainCategory]) {
+            const possibleTypes = awardTypes[mainCategory].filter(t => !filterType || t.id.startsWith(filterType));
+            if (possibleTypes.length === 1 && !formData.nominationType) {
+                setFormData(prev => ({ 
+                    ...prev, 
+                    nominationType: possibleTypes[0].id,
+                    awardGroup: mainCategory 
+                }));
+                // Auto skip to details if it's a direct choice (Studentpreneur)
+                if (mainCategory === 'studentpreneur') {
+                    setStep(2);
+                }
+            }
+        }
+    }, [mainCategory, filterType, formData.nominationType]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -152,6 +188,9 @@ const RegistrationForm = () => {
         e.preventDefault();
         setSubmitting(true);
 
+        const queryParams = new URLSearchParams(window.location.search);
+        const mainCategory = queryParams.get('category') || 'guru';
+
         const data = new FormData();
         
         // Append all text fields
@@ -164,16 +203,21 @@ const RegistrationForm = () => {
         // Add awardGroup specifically if not already set (mainCategory)
         data.append('awardGroup', mainCategory);
 
-        // Append image if present
+        // Append image/photo if present (For Guru)
         if (uploadMode === 'upload' && fileInputRef.current?.files[0]) {
             data.append('photo', fileInputRef.current.files[0]);
         } else if (uploadMode === 'camera' && capturedImage) {
             data.append('capturedImage', capturedImage);
         }
 
+        // Append Pitch Deck (For Studentpreneur)
+        if (formData.pitchDeck) {
+            data.append('pitchDeck', formData.pitchDeck);
+        }
+
         try {
-            // Updated to use XAMPP Apache path
-            const response = await fetch('http://localhost/smm/ssvm-school/public/api/register', {
+            console.log('Submitting to:', 'http://127.0.0.1/smm/ssvm-school/public/api/register');
+            const response = await fetch('http://127.0.0.1/smm/ssvm-school/public/api/register', {
                 method: 'POST',
                 body: data,
                 headers: {
@@ -184,6 +228,7 @@ const RegistrationForm = () => {
             const result = await response.json();
 
             if (response.ok && result.success) {
+                setRegNumber(result.data.register_number);
                 setSubmitted(true);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
@@ -191,7 +236,7 @@ const RegistrationForm = () => {
             }
         } catch (error) {
             console.error('Error submitting form:', error);
-            alert('An error occurred while submitting. Please make sure the backend is running.');
+            alert(`Network Error: ${error.message}. Please check if the backend server is running.`);
         } finally {
             setSubmitting(false);
         }
@@ -249,17 +294,22 @@ const RegistrationForm = () => {
                                     {mainCategory === 'guru' ? 'Inspirational Guru Awards' : 'Studentpreneur Awards'}
                                 </h4>
                                 <div className="nomination-cards">
-                                    {awardTypes[mainCategory].map(type => (
-                                        <div 
-                                            key={type.id}
-                                            className={`nomination-card ${formData.nominationType === type.id ? 'selected' : ''}`}
-                                            onClick={() => setFormData(prev => ({ ...prev, nominationType: type.id, awardGroup: mainCategory }))}
-                                        >
-                                            <i className="bi bi-check2-circle"></i>
-                                            <h4>{type.label}</h4>
-                                            <p>{type.desc}</p>
-                                        </div>
-                                    ))}
+                                    {awardTypes[mainCategory]
+                                        .filter(type => !filterType || type.id.startsWith(filterType))
+                                        .map(type => (
+                                            <div 
+                                                key={type.id}
+                                                className={`nomination-card ${formData.nominationType === type.id ? 'selected' : ''}`}
+                                                onClick={() => setFormData(prev => ({ ...prev, nominationType: type.id, awardGroup: mainCategory }))}
+                                            >
+                                                {formData.nominationType === type.id && (
+                                                    <span className="selected-badge">Selected</span>
+                                                )}
+                                                <i className={`bi ${formData.nominationType === type.id ? 'bi-check-circle-fill' : 'bi-check2-circle'}`}></i>
+                                                <h4>{type.label}</h4>
+                                                <p>{type.desc}</p>
+                                            </div>
+                                        ))}
                                 </div>
                                 <div className="form-footer" style={{ marginTop: '30px' }}>
                                     <button className="nav-btn btn-back" onClick={() => setMainCategory('')}>Back to Main</button>
@@ -282,55 +332,50 @@ const RegistrationForm = () => {
                 return (
                     <div ref={formRef}>
                         <div className="step-header">
-                            <h2>{isGuru ? (isNominateOther ? 'Teacher Details' : 'Nominee Details') : 'Personal Information'}</h2>
-                            <p>Please provide accurate details for the {isGuru ? 'educator' : 'student'}</p>
+                            <h2>{isGuru ? (isNominateOther ? 'Teacher Details' : 'Nominee Details') : 'Student Details'}</h2>
+                            <p>Please provide accurate details for the {isGuru ? 'educator' : 'participant'}</p>
                         </div>
                         <div className="registration-form">
-                            {/* Names Grid */}
-                            <div className="input-group">
-                                <label>{isGuru ? "Teacher's First Name" : "First Name"} *</label>
-                                <input type="text" name="studentName" value={formData.studentName} onChange={handleChange} placeholder="First Name" required />
-                            </div>
-                            <div className="input-group">
-                                <label>{isGuru ? "Teacher's Last Name" : "Last Name"}</label>
-                                <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" />
-                            </div>
-
-                            <div className="input-group full-width">
-                                <label>{isGuru ? 'Name of the School' : 'Name of your School/College'} *</label>
-                                <input type="text" name="schoolName" value={formData.schoolName} onChange={handleChange} placeholder="School Name" required />
-                            </div>
-
-                            <div className="input-group">
-                                <label>Phone *</label>
-                                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" required />
-                            </div>
-                            <div className="input-group">
-                                <label>Email</label>
-                                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="email@example.com" />
-                            </div>
-
-                            {isGuru && (
+                            {isGuru ? (
                                 <>
+                                    {/* Names Grid */}
+                                    <div className="input-group">
+                                        <label>Teacher's First Name *</label>
+                                        <input type="text" name="studentName" value={formData.studentName} onChange={handleChange} placeholder="First Name" required />
+                                    </div>
+                                    <div className="input-group">
+                                        <label>Teacher's Last Name</label>
+                                        <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" />
+                                    </div>
+
+                                    <div className="input-group full-width">
+                                        <label>Name of the School *</label>
+                                        <input type="text" name="schoolName" value={formData.schoolName} onChange={handleChange} placeholder="School Name" required />
+                                    </div>
+
+                                    <div className="input-group">
+                                        <label>Phone *</label>
+                                        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" required />
+                                    </div>
+                                    <div className="input-group">
+                                        <label>Email</label>
+                                        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="email@example.com" />
+                                    </div>
                                     <div className="input-group full-width">
                                         <label>Which subjects do they teach? *</label>
                                         <input type="text" name="subjects" value={formData.subjects} onChange={handleChange} placeholder="e.g. Mathematics, Science" required />
                                     </div>
                                     <div className="input-group full-width">
-                                        <label>How have they impacted their students lives? Tell us in few sentences *</label>
-                                        <textarea name="impact" value={formData.impact} onChange={handleChange} rows="3" placeholder="Describe the impact..." required></textarea>
+                                        <label>How have they impacted their students lives? *</label>
+                                        <textarea name="impact" value={formData.impact} onChange={handleChange} rows="3" required></textarea>
                                     </div>
                                     <div className="input-group full-width">
-                                        <label>What is their vision for the younger generations of our country? *</label>
-                                        <textarea name="vision" value={formData.vision} onChange={handleChange} rows="3" placeholder="Vision for future..." required></textarea>
-                                    </div>
-                                    <div className="input-group full-width">
-                                        <label>Have they won any awards?</label>
-                                        <textarea name="awardsWon" value={formData.awardsWon} onChange={handleChange} rows="2" placeholder="List awards..."></textarea>
+                                        <label>Vision for the younger generation *</label>
+                                        <textarea name="vision" value={formData.vision} onChange={handleChange} rows="3" required></textarea>
                                     </div>
                                     <div className="input-group full-width">
                                         <label>Brief profile about your teacher *</label>
-                                        <textarea name="teacherProfile" value={formData.teacherProfile} onChange={handleChange} rows="3" placeholder="A short bio..." required></textarea>
+                                        <textarea name="teacherProfile" value={formData.teacherProfile} onChange={handleChange} rows="3" required></textarea>
                                     </div>
                                     <div className="input-group full-width">
                                         <label>Candidate Photo *</label>
@@ -431,6 +476,60 @@ const RegistrationForm = () => {
                                         <input type="number" name="experience" value={formData.experience} onChange={handleChange} placeholder="Number of years" required />
                                     </div>
                                 </>
+                            ) : (
+                                <>
+                                    <div className="input-group">
+                                        <label>Student Name *</label>
+                                        <input type="text" name="studentName" value={formData.studentName} onChange={handleChange} placeholder="Name" required />
+                                    </div>
+                                    <div className="input-group">
+                                        <label>Grade/Class *</label>
+                                        <input type="text" name="grade" value={formData.grade} onChange={handleChange} placeholder="e.g., 10th Grade" required />
+                                    </div>
+                                    
+                                    <div className="input-group">
+                                        <label>Applicant Email *</label>
+                                        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="your.email@example.com" required />
+                                    </div>
+                                    <div className="input-group">
+                                        <label>Applicant Mobile No *</label>
+                                        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Mobile Number" required />
+                                    </div>
+
+                                    <div className="input-group full-width">
+                                        <label>School Name *</label>
+                                        <input type="text" name="schoolName" value={formData.schoolName} onChange={handleChange} placeholder="Full School Name" required />
+                                    </div>
+
+                                    <div className="input-group">
+                                        <label>School City *</label>
+                                        <input type="text" name="schoolCity" value={formData.schoolCity} onChange={handleChange} placeholder="City" required />
+                                    </div>
+                                    <div className="input-group">
+                                        <label>School Phone no</label>
+                                        <input type="tel" name="schoolPhone" value={formData.schoolPhone} onChange={handleChange} placeholder="School Contact" />
+                                    </div>
+
+                                    <div className="input-group full-width">
+                                        <label>School email</label>
+                                        <input type="email" name="schoolEmail" value={formData.schoolEmail} onChange={handleChange} placeholder="school.email@example.com" />
+                                    </div>
+
+                                    <div className="input-group full-width">
+                                        <label>Business Idea / Venture Details *</label>
+                                        <textarea name="businessIdea" value={formData.businessIdea} onChange={handleChange} rows="3" placeholder="Describe your innovative idea..." required></textarea>
+                                    </div>
+
+                                    <div className="input-group">
+                                        <label>Total members in Team *</label>
+                                        <input type="number" name="totalMembers" value={formData.totalMembers} onChange={handleChange} placeholder="No. of members" required />
+                                    </div>
+
+                                    <div className="input-group">
+                                        <label>Presentation / Pitch Deck (PDF/Image)</label>
+                                        <input type="file" name="pitchDeck" onChange={(e) => setFormData(prev => ({ ...prev, pitchDeck: e.target.files[0] }))} accept=".pdf,image/*" />
+                                    </div>
+                                </>
                             )}
                         </div>
                         <div className="form-footer">
@@ -521,11 +620,24 @@ const RegistrationForm = () => {
             <div className="registration-container">
                 {!submitted && renderStepper()}
                 
-                <div className="form-content-area">
+                <div className="form-content-area" style={{ background: '#f8f9fa' }}>
                     {submitted ? (
                         <div className="success-card">
                             <div className="success-icon">✓</div>
                             <h2 style={{ fontFamily: 'Sneaker', fontSize: '48px', color: 'var(--primary)' }}>Application Received!</h2>
+                            
+                            <div className="reg-number-display" style={{ 
+                                margin: '25px auto', 
+                                padding: '15px 30px', 
+                                background: 'rgba(59, 130, 246, 0.1)', 
+                                border: '1px dashed var(--primary)', 
+                                borderRadius: '12px',
+                                display: 'inline-block'
+                            }}>
+                                <span style={{ color: 'var(--text-muted)', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px' }}>Your Registration Number</span>
+                                <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--primary)', marginTop: '5px' }}>{regNumber}</div>
+                            </div>
+
                             <p style={{ fontSize: '18px', color: 'var(--text-muted)', maxWidth: '500px', margin: '20px auto' }}>
                                 Thank you for applying to the SSVM Sports Excellence Academy. Our verification team will review your application and get back to you soon.
                             </p>

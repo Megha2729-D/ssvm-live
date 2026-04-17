@@ -100,37 +100,37 @@
 /* BACKGROUNDS */
 .student_award_sec .section-0 .sp-bg {
     background: linear-gradient(#00000099, #00000099),
-        url("../../../public/assets/images/insp-1.jpg");
+        url("../../../public/assets/images/inspiration/insp-1.jpg");
 }
 
 .student_award_sec .section-1 .sp-bg {
     background: linear-gradient(#00000099, #00000099),
-        url("../../../public/assets/images/insp-2.jpg");
+        url("../../../public/assets/images/inspiration/insp-2.jpg");
 }
 
 .student_award_sec .section-2 .sp-bg {
     background: linear-gradient(#00000099, #00000099),
-        url("../../../public/assets/images/insp-3.jpg");
+        url("../../../public/assets/images/inspiration/insp-3.jpg");
 }
 
 .student_award_sec .section-3 .sp-bg {
     background: linear-gradient(#00000099, #00000099),
-        url("../../../public/assets/images/insp-4.png");
+        url("../../../public/assets/images/inspiration/insp-4.jpg");
 }
 
 .student_award_sec .section-4 .sp-bg {
     background: linear-gradient(#00000099, #00000099),
-        url("../../../public/assets/images/insp-5.jpg");
+        url("../../../public/assets/images/inspiration/insp-5.jpg");
 }
 
 .student_award_sec .section-5 .sp-bg {
     background: linear-gradient(#00000099, #00000099),
-        url("../../../public/assets/images/insp-6.png");
+        url("../../../public/assets/images/inspiration/insp-6.jpg");
 }
 
 .student_award_sec .section-6 .sp-bg {
     background: linear-gradient(#00000099, #00000099),
-        url("../../../public/assets/images/insp-7.webp");
+        url("../../../public/assets/images/inspiration/insp-7.jpg");
 }
 
 .student_award_sec {

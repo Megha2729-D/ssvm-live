@@ -1,28 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
-import CustomCursor from "../Component/Cursor";
 import TitleReveal from "../Component/TitleReveal";
 import { Autoplay, FreeMode } from "swiper/modules";
 
 import MattersSection from "../Component/MattersSection";
 
-import FencingStickerAnimation from "../Component/FencingStickerAnimation"
-import ScrollRevealText from "../Component/ScrollRevealText";
-import SportsAnimation from "../Component/SportsAnimation";
 import VolleyBallAnimation from "../Component/VolleyBallAnimation";
 import MobileBallAnimation from "../Component/MobileBallAnimation";
 
 import HorseAnimation from "../Component/HorseAnimation";
 import ArcherScrollAnimation from "../Component/ArcherScrollAnimation";
 import GuruAward from "../Component/GuruAward";
-
-import GuruAwardAnimation from "../Component/GuruAwardAnimation";
 import SpeakerSwiper from "../Component/SpeakerSwiper";
-import CycleAnimation from "../Component/CycyleAnimation";
 
-import AOS from "aos";
-import "aos/dist/aos.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-cards";
 const BASE_IMAGE_URL = "https://ssvm-new.onrender.com/assets/images/"
@@ -163,10 +153,6 @@ const Homepage = () => {
         if (window.innerWidth < 768) setIsMobile(true);
     }, []);
 
-    // AOS init
-    useEffect(() => {
-        AOS.init({ duration: 1000, once: false, easing: "ease-in-out" });
-    }, []);
 
     // Mobile card fly-in
     useEffect(() => {
@@ -253,14 +239,6 @@ const Homepage = () => {
             setAnimating(false);
         }, 400); // match animation duration
     };
-
-    const cards = [
-        { title: "STARTER", price: "45€", color: "#23002b", textColor: "#e894ff" },
-        { title: "BOOSTER", price: "85€", color: "#002629", textColor: "#94ffe4" },
-        { title: "PRO", price: "125€", color: "#291900", textColor: "#FF9D42" },
-        { title: "BOOSTER", price: "85€", color: "#e894ff", textColor: "#23002b" },
-        { title: "PRO", price: "125€", color: "#23002b", textColor: "#e894ff" },
-    ];
 
     return (
         <>
@@ -362,9 +340,6 @@ const Homepage = () => {
                 <SpeakerSwiper />
             </div>
             <ArcherScrollAnimation />
-            {/* <section className="position-relative">
-                <GuruAwardAnimation />
-            </section> */}
             <div data-aos="zoom-in">
                 <GuruAward />
             </div>

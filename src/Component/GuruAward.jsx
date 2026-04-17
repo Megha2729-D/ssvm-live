@@ -1,10 +1,18 @@
 import React from "react";
 import TitleReveal from "./TitleReveal";
 import "../assets/css/guruaward.css";
+import { useNavigate } from 'react-router-dom';
 
 const BASE_IMAGE_URL = "https://ssvm-new.onrender.com/assets/images/"
 
 const GuruAward = () => {
+    const navigate = useNavigate();
+    
+    const handleAwardSelect = (category, type = '') => {
+        const typeParam = type ? `&type=${type}` : '';
+        navigate(`/register?category=${category}${typeParam}`);
+    };
+
     return (
         <div className="guru_award_parent">
             <div className="hero-bg"></div>
@@ -75,12 +83,12 @@ const GuruAward = () => {
                         <div className="col-lg-12 mt-4">
                             <div className="hero-actions d-flex justify-content-between w-100">
                                 <div className="d-flex flex-column align-items-center justify-content-center">
-                                    <button className="btn-primary">
+                                    <button onClick={() => handleAwardSelect('guru', 'internal')} className="btn-primary">
                                         <span>Register – Internal</span>
                                     </button>
                                     <p className="mt-3 text-white text-center small">Internal Category – Open to students from SSVM Institutions</p>
                                 </div>
-                                <div className="d-flex flex-column align-items-center justify-content-center">
+                                <div onClick={() => handleAwardSelect('guru', 'external')} className="d-flex flex-column align-items-center justify-content-center">
                                     <button className="btn-ghost">
                                         <span>Register – External</span>
                                     </button>

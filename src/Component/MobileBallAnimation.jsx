@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import lottie from "lottie-web";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import LetterReveal from "./LetterReveal";
+import TitleReveal from "./TitleReveal";
 
 import "../assets/css/mobileball.css";
 import volleyballData from "../assets/json/699cbf57a3baf554905772e8_volleyball_desktop.json";
@@ -332,9 +332,9 @@ const MobileBallAnimation = () => {
                     >
                         <div className="text-reveal-item mb-3">
                             <div className="main-brand-stack d-flex flex-column align-items-center text-center">
-                                <LetterReveal text="Ssvm Transforming" className="fw-bold text-dark text-center" controlled />
-                                <LetterReveal text="India Conclave" className="fw-bold text-dark text-center" controlled />
-                                <LetterReveal text="2026" className="fw-bold text-dark text-center" controlled />
+                                <TitleReveal text="Ssvm Transforming" className="fw-bold text-dark text-center" controlled />
+                                <TitleReveal text="India Conclave" className="fw-bold text-dark text-center" controlled />
+                                <TitleReveal text="2026" className="fw-bold text-dark text-center" controlled />
                             </div>
                         </div>
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import lottie from "lottie-web";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import ScrollRevealText from "./ScrollRevealText";
+import TitleReveal from "./TitleReveal";
 
 import horseAnimation from "../assets/json/69b860a75dc06d6daafcd1ba_horse.json";
 import "../assets/css/horse.css";
@@ -141,7 +141,7 @@ const HorseAnimation = () => {
                                                     SSVM Transforming India Conclave 2026
                                                 </span> */}
 
-                                                <ScrollRevealText
+                                                <TitleReveal
                                                     text="SSVM Transforming India Conclave 2026"
                                                     className="reveal_heading"
                                                 />
@@ -155,7 +155,7 @@ const HorseAnimation = () => {
                                                 </p>
 
                                                 <div className="horse_second_sec">
-                                                    <ScrollRevealText
+                                                    <TitleReveal
                                                         text="Theme 2026 - Flex Your Future"
                                                         className="reveal_heading"
                                                     />

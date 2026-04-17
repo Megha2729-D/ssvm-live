@@ -4,30 +4,55 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TitleReveal = ({ text, className = "", style = {} }) => {
+const TitleReveal = ({
+  text,
+  className = "",
+  style = {},
+  triggerRef,
+  scrub = true,
+}) => {
   const containerRef = useRef(null);
 
   useLayoutEffect(() => {
-    const letters = containerRef.current.querySelectorAll(".letter");
+    const el = containerRef.current;
+    const letters = el.querySelectorAll(".letter");
 
     const ctx = gsap.context(() => {
-      gsap.from(letters, {
+      const total = letters.length;
+
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: triggerRef?.current || el,
           start: "top 90%",
-          toggleActions: "play none none none",
+          end: "top 40%",
+          scrub: scrub,
         },
-        opacity: 0,
-        scale: 0,
-        y: 20,
-        duration: 0.8,
-        stagger: 0.04,
-        ease: "back.out(1.7)",
+      });
+
+      letters.forEach((letter, i) => {
+        const progress = i / total;
+
+        tl.fromTo(
+          letter,
+          {
+            x: progress * 3,
+            skewX: 20,
+            opacity: 0,
+          },
+          {
+            x: 0,
+            skewX: 0,
+            opacity: 1,
+            ease: "none",
+            duration: 0.25,
+          },
+          i * 0.08
+        );
       });
     }, containerRef);
 
     return () => ctx.revert();
-  }, [text]);
+  }, [text, triggerRef, scrub]);
 
   return (
     <h2
@@ -36,19 +61,31 @@ const TitleReveal = ({ text, className = "", style = {} }) => {
       style={{
         ...style,
         display: "block",
-        overflow: "hidden", // Prevent flash
+        overflow: "hidden",
       }}
     >
-      {text.split("").map((char, index) => (
+      {text.split(" ").map((word, wIndex) => (
         <span
-          key={index}
-          className="letter"
+          key={wIndex}
+          className="word"
           style={{
             display: "inline-block",
-            whiteSpace: char === " " ? "pre" : "normal",
+            whiteSpace: "nowrap", // ✅ prevents word breaking
+            marginRight: "0.25em",
           }}
         >
-          {char}
+          {word.split("").map((char, cIndex) => (
+            <span
+              key={cIndex}
+              className="letter"
+              style={{
+                display: "inline-block",
+                whiteSpace: "pre",
+              }}
+            >
+              {char}
+            </span>
+          ))}
         </span>
       ))}
     </h2>

@@ -158,10 +158,19 @@
     transition: all 0.3s ease;
 }
 
-/* when stopped */
-.fixed-cta.stop {
-    position: relative;
+.fixed-cta.is-fixed {
+    position: absolute;
     bottom: 0;
+}
+
+.student_award_sec {
+    position: relative;
+}
+
+@media screen and (min-width: 992px) {
+    .cta-wrapper {
+        padding-bottom: 115px;
+    }
 }
 
 @media screen and (max-width: 991px) {

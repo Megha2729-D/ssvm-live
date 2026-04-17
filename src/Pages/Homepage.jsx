@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import CustomCursor from "../Component/Cursor";
-import TextReveal from "../Component/TextReveal";
+import TitleReveal from "../Component/TitleReveal";
 import { Autoplay, FreeMode } from "swiper/modules";
 
-import LetterReveal from "../Component/LetterReveal";
 import MattersSection from "../Component/MattersSection";
 
 import FencingStickerAnimation from "../Component/FencingStickerAnimation"
@@ -282,9 +281,9 @@ const Homepage = () => {
                                             {/* <img src="/assets/images/ring_theme.png" alt="Yellow Oval" className="yellow-oval" /> */}
                                             <div className="anim_heading">
                                                 <img src={`${BASE_IMAGE_URL}banner-anim-cont.gif`} className="w-100" alt="" />
-                                                {/* <TextReveal text="Flex" className="banner_text" />
-                                                <TextReveal text=" Your" className="banner_text" />
-                                                <TextReveal text=" Future" className="banner_text" /> */}
+                                                {/* <TitleReveal text="Flex" className="banner_text" />
+                                                <TitleReveal text=" Your" className="banner_text" />
+                                                <TitleReveal text=" Future" className="banner_text" /> */}
                                             </div>
                                         </div>
 
@@ -377,7 +376,7 @@ const Homepage = () => {
                                 <img src={`${BASE_IMAGE_URL}favicon.png`} alt="" />
                                 Inside SSVM
                             </span>
-                            <ScrollRevealText text="Areas of Inspiration" className="reveal_heading text-white" />
+                            <TitleReveal text="Areas of Inspiration" className="reveal_heading text-white" />
                         </div>
                         <div className="row mt-4">
                             <div className="col-lg-3 d-flex align-items-center justify-content-lg-start justify-content-center">
@@ -437,7 +436,7 @@ const Homepage = () => {
                                 <img src={`${BASE_IMAGE_URL}favicon.png`} alt="" />
                                 Inside SSVM
                             </span>
-                            <ScrollRevealText text="Inspirational Guru Awards 2026" className="reveal_heading" />
+                            <TitleReveal text="Inspirational Guru Awards 2026" className="reveal_heading" />
                             <p>
                                 While students are the future, educators are the force shaping that future.
                             </p>
@@ -465,7 +464,7 @@ const Homepage = () => {
                                         <img src={`${BASE_IMAGE_URL}favicon.png`} alt="" />
                                         About Us
                                     </span>
-                                    <ScrollRevealText text="About ssvm Institutions" className="reveal_heading" />
+                                    <TitleReveal text="About ssvm Institutions" className="reveal_heading" />
                                     <p>
                                         SSVM Institutions have consistently stood at the intersection of academic excellence and future-focused education. With a strong belief that education must extend beyond classrooms, SSVM has built a culture that nurtures curiosity, leadership, and real-world thinking.
                                     </p>
@@ -555,7 +554,7 @@ const Homepage = () => {
             <section>
                 <div className="pb-4 media_coverage">
                     <div data-aos="fade-up" data-aos-delay="200">
-                        <LetterReveal text="Media Coverage" className="heading_about text-c1 text-center small_sm_abt_heading" />
+                        <TitleReveal text="Media Coverage" className="heading_about text-c1 text-center small_sm_abt_heading" />
                     </div>
                     <div className="pt-4" data-aos="fade-up" data-aos-delay="300">
                         <Swiper
@@ -607,7 +606,7 @@ const Homepage = () => {
             <section>
                 <div className="py-5 section_container">
                     <div data-aos="fade-up" data-aos-delay="200">
-                        <LetterReveal text="Past Edition Highlights" className="heading_about text-center text-c1 small_sm_abt_heading" />
+                        <TitleReveal text="Past Edition Highlights" className="heading_about text-center text-c1 small_sm_abt_heading" />
                     </div>
                     <div className="row g-4 mt-4" data-aos="fade-up" data-aos-delay="300">
                         {videos.map((id, i) => (

@@ -120,43 +120,28 @@ const StudentpreneurAward = () => {
                         "<"
                     )
 
-                    // 🔥 TEXT ANIMATION
-                    .from(section.querySelectorAll(".sp-content"), {
-                        y: 80,
+                    .from(section.querySelector(".sp-content"), {
+                        y: 60,
                         opacity: 0
-                    }, "<0.2")
-
-                // .from(section.querySelectorAll(".desc"), {
-                //     y: 40,
-                //     opacity: 0
-                // }, "<0.2")
-
-                // .from(section.querySelectorAll("li"), {
-                //     y: 30,
-                //     opacity: 0,
-                //     // stagger: 0.1
-                // }, "<0.2");
-
+                    }, "<0.2");
             });
+
+            // ✅ CTA FIX (CLASS ONLY, NO ANIMATION)
             const cta = document.querySelector(".fixed-cta");
+
             ScrollTrigger.create({
                 trigger: footerRef.current,
                 start: "top bottom",
+
                 onEnter: () => {
-                    gsap.to(cta, {
-                        position: "relative",
-                        bottom: "0",
-                        duration: 0.3
-                    });
+                    cta?.classList.add("is-fixed");
                 },
+
                 onLeaveBack: () => {
-                    gsap.to(cta, {
-                        position: "fixed",
-                        bottom: "20px",
-                        duration: 0.3
-                    });
+                    cta?.classList.remove("is-fixed");
                 }
             });
+
         }, containerRef);
 
         return () => ctx.revert();

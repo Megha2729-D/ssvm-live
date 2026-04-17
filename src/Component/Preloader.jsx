@@ -1,6 +1,6 @@
 import React from "react";
 import "../assets/css/preloader.css";
-import TextReveal from "./TextReveal"
+import PreloaderTextReveal from "./PreloaderTextReveal"
 
 const Preloader = () => {
     return (
@@ -26,7 +26,7 @@ const Preloader = () => {
                         <path className="bb-9" fill="#F2FF33" d="M117.35,125c5.58-2.32,16.9-13.84,18.1-19.2-2.41,1.46-5.18,2.36-6.78,4.23-4.21,5-7.89,10.37-11.32,15Z" />
                     </svg>
                 </svg> */}
-                <TextReveal text="Loading..." className="banner_text" />
+                <PreloaderTextReveal text="Loading..." className="banner_text" />
             </div>
         </div>
     );

@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import "../assets/css/speakerSwiper.css";
-import LetterReveal from "./LetterReveal";
+import TitleReveal from "./TitleReveal";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -17,10 +17,23 @@ const BASE_IMAGE_URL = "https://ssvm-new.onrender.com/assets/images/";
 export default function SpeakerSwiper() {
     const sectionRef = useRef();
 
-    const speaker = new Array(9).fill({
-        img: `${BASE_IMAGE_URL}speakers.jpeg`
-    });
-
+    const speaker = [
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` },
+        { img: `${BASE_IMAGE_URL}speakers.jpeg` }
+    ];
     useEffect(() => {
         const ctx = gsap.context(() => {
 
@@ -77,7 +90,7 @@ export default function SpeakerSwiper() {
 
                         {/* 🔥 IMPORTANT: Only use for splitting, NOT animation */}
                         <div data-aos="fade-up">
-                            <LetterReveal
+                            <TitleReveal
                                 text="Speakers"
                                 className="main_heading_about text-c1"
                             />

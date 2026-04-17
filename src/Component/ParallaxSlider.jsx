@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Parallax, Controller, Mousewheel } from "swiper/modules";
-import TextReveal from "./TextReveal";
+import TitleReveal from "./TitleReveal";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -69,7 +69,7 @@ export default function ParallaxSlider() {
 
             {/* Description */}
             <div className={`description ${hideDesc ? "hidden" : ""}`}>
-                <TextReveal text="Speakers" className="banner_text" />
+                <TitleReveal text="Speakers" className="banner_text" />
                 <p>
                     The SSVM Transforming India Conclave 2026 is a premier gathering of visionary leaders, industry trailblazers, and social entrepreneurs.
                 </p>

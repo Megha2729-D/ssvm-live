@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import lottie from "lottie-web";
 import gsap from "gsap";
-import ScrollRevealText from "./ScrollRevealText";
+import TitleReveal from "./TitleReveal";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../assets/css/archer.css";
 
@@ -140,7 +140,7 @@ const ArcherScrollAnimation = () => {
                     <img src={`${BASE_IMAGE_URL}favicon.png`} alt="" />
                     Awards
                 </span>
-                <ScrollRevealText text="Recognising True Excellence" className="reveal_heading text-c1 mt-2" />
+                <TitleReveal text="Recognising True Excellence" className="reveal_heading text-c1 mt-2" />
             </div>
             <div className="w-100">
                 <div className="archer-section">
@@ -151,7 +151,7 @@ const ArcherScrollAnimation = () => {
                     <div ref={textRef} className="archer-text">
                         <img src={`${BASE_IMAGE_URL}ssvm-student-award.gif`} alt="" />
                         <div data-aos="fade-up">
-                            <ScrollRevealText text="Studentpreneur Awards 2026" className="reveal_heading text-c1" />
+                            <TitleReveal text="Studentpreneur Awards 2026" className="reveal_heading text-c1" />
                             <p>The Studentpreneur Awards is an initiative that encourages students to start thinking and acting like entrepreneurs early. It gives them a platform to showcase ideas they are actively working on and motivates them to take action instead of just thinking. The goal is to build confidence, real-world skills, and a mindset of creating and solving problems from a young age.</p>
                             <div className="col-lg-12 mt-1">
                                 <div className="hero-actions d-flex justify-content-between w-100">

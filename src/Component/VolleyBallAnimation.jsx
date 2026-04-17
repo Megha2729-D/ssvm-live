@@ -2,13 +2,10 @@ import React, { useEffect, useRef } from "react";
 import lottie from "lottie-web";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import ScrollRevealText from "./ScrollRevealText";
-import LetterReveal from "./LetterReveal";
+import TitleReveal from "./TitleReveal";
 
 import "../assets/css/volleyball.css";
 import runnerAnimation from "../assets/json/699cbf57a3baf554905772e8_volleyball_desktop.json";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const BASE_IMAGE_URL = "https://ssvm-new.onrender.com/assets/images/"
 
@@ -80,7 +77,7 @@ const VolleyBallAnimation = () => {
             // ✅ Double refresh to catch final layout
             safeRefresh();
             setTimeout(safeRefresh, 100);
-            
+
             const totalFrames = animation.totalFrames;
 
             gsap.set(bottomTextRef.current, { opacity: 1, y: 0 });
@@ -102,7 +99,7 @@ const VolleyBallAnimation = () => {
                     const slowFactor = 0.8;
                     const slowedProgress = Math.min(progress * slowFactor, 1);
                     const frame = Math.round(slowedProgress * (totalFrames - 1));
-                    
+
                     animation.goToAndStop(frame, true);
 
                     if (progress > 0.53 && !bottomHidden) {
@@ -203,7 +200,7 @@ const VolleyBallAnimation = () => {
             <div className="volleyball_anim_content">
                 {/* Bottom Left Text */}
                 <div ref={bottomTextRef} className="bottom-text me-lg-0 me-3 d-none d-md-block">
-                    <LetterReveal text="Shape Tomorrow Through Action" className="heading_about text-c1 small_sm_abt_heading" />
+                    <TitleReveal text="Shape Tomorrow Through Action" className="heading_about text-c1 small_sm_abt_heading" />
                 </div>
                 {/* <div ref={bottomTextRef} className="bottom-text me-lg-0 me-3">
                     <ScrollRevealText text="Transforming India Conclave 2026" className="reveal_heading main_heading_about" />
@@ -211,13 +208,13 @@ const VolleyBallAnimation = () => {
                 </div> */}
                 {/* Middle Text */}
                 <div ref={middleTextRef} className="middle-text d-none d-md-flex" style={{ opacity: 0 }}>
-                    <LetterReveal
+                    <TitleReveal
                         text="Ssvm Transforming"
                         className="heading_about main_heading_about"
-                    /><LetterReveal
+                    /><TitleReveal
                         text="India Conclave"
                         className="heading_about main_heading_about"
-                    /><LetterReveal
+                    /><TitleReveal
                         text="2026"
                         className="heading_about main_heading_about"
                     />
@@ -238,11 +235,11 @@ const VolleyBallAnimation = () => {
                             <div data-aos="fade-up">
                                 <h2 className="main_heading_about">Dr. Manimekalai Mohan</h2>
                                 <h2 className="main_heading_about">Founder, SSVM Institutions</h2>
-                                {/* <LetterReveal
+                                {/* <TitleReveal
                                     text="Dr. Manimekalai Mohan"
                                     className="main_heading_about"
                                 />
-                                <LetterReveal
+                                <TitleReveal
                                     text="Founder, SSVM Institutions"
                                     className="main_heading_about"
                                 /> */}

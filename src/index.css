@@ -278,7 +278,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px 0 !important;
+  padding: 15px 0;
 }
 
 .banner_content_parent .row {

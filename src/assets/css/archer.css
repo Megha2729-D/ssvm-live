@@ -147,9 +147,9 @@
     .archer-text {
         position: relative;
         padding: 0 15px;
-        top: 0;
-        left: 0;
-        max-width: none;
+        top: 0 !important;
+        left: 0 !important;
+        max-width: none !important;
         opacity: 1;
         margin-bottom: 50px;
         display: flex;

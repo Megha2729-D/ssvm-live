@@ -7,7 +7,7 @@ import TitleReveal from "./TitleReveal";
 import horseAnimation from "../assets/json/69b860a75dc06d6daafcd1ba_horse.json";
 import "../assets/css/horse.css";
 
-const BASE_IMAGE_URL = "https://ssvm-main.onrender.com/assets/images/";
+const BASE_IMAGE_URL = "https://ssvm-new.onrender.com/assets/images/";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -135,12 +135,10 @@ const HorseAnimation = () => {
                                     <div className="row py-5 justify-content-center align-items-stretch">
                                         <div className="col-md-10 col-xl-9">
                                             <div className="about__content text-black">
-
-                                                {/* <span className="section-sub-title text-uppercase small fw-bold">
+                                                <span className="section-sub-title text-uppercase small fw-bold">
                                                     <img src={`${BASE_IMAGE_URL}favicon.png`} alt="" />
-                                                    SSVM Transforming India Conclave 2026
-                                                </span> */}
-
+                                                    Transforming Minds. Shaping Futures.
+                                                </span>
                                                 <TitleReveal
                                                     text="SSVM Transforming India Conclave 2026"
                                                     className="reveal_heading"

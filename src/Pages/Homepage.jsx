@@ -9,6 +9,7 @@ import MobileBallAnimation from "../Component/MobileBallAnimation";
 
 import HorseAnimation from "../Component/HorseAnimation";
 import ArcherScrollAnimation from "../Component/ArcherScrollAnimation";
+import GuruAwardArchery from "../Component/GuruAwardArchery";
 import GuruAward from "../Component/GuruAward";
 import SpeakerSwiper from "../Component/SpeakerSwiper";
 
@@ -245,53 +246,55 @@ const Homepage = () => {
             <section id="home">
                 <div className="main_content">
                     <div className="top_section">
-                        <div className="section_container banner_content_parent">
-                            <div className="row justify-content-center pb-4">
-                                <div className="col-lg-8">
-                                    <div className="row justify-content-center">
-                                        <div className="col-lg-3 col-6 py-3">
-                                            <img src={`${BASE_IMAGE_URL}thug-of-war.gif`} className="w-100" alt="" />
-                                            {/* <FencingStickerAnimation /> */}
+                        <div className="section_container ">
+                            <div className="banner_content_parent">
+                                <div className="row justify-content-center pb-4">
+                                    <div className="col-lg-8">
+                                        <div className="row justify-content-center">
+                                            <div className="col-lg-3 col-6 py-3">
+                                                <img src={`${BASE_IMAGE_URL}thug-of-war.gif`} className="w-100" alt="" />
+                                                {/* <FencingStickerAnimation /> */}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="banner_content">
-                                        <div className="anim_heading_wrapper" onMouseMove={handleMouseMove}>
-                                            {/* <img src="/assets/images/ring_theme.png" alt="Yellow Oval" className="yellow-oval" /> */}
-                                            <div className="anim_heading">
-                                                <img src={`${BASE_IMAGE_URL}banner-anim-cont.gif`} className="w-100" alt="" />
-                                                {/* <TitleReveal text="Flex" className="banner_text" />
+                                        <div className="banner_content">
+                                            <div className="anim_heading_wrapper" onMouseMove={handleMouseMove}>
+                                                {/* <img src="/assets/images/ring_theme.png" alt="Yellow Oval" className="yellow-oval" /> */}
+                                                <div className="anim_heading">
+                                                    <img src={`${BASE_IMAGE_URL}banner-anim-cont.gif`} className="w-100" alt="" />
+                                                    {/* <TitleReveal text="Flex" className="banner_text" />
                                                 <TitleReveal text=" Your" className="banner_text" />
                                                 <TitleReveal text=" Future" className="banner_text" /> */}
+                                                </div>
                                             </div>
+
+                                            {isMobile && (
+                                                <p>
+                                                    SSVM brings together talent, innovation, and opportunities to help you build and flex your future.
+                                                </p>
+                                            )}
                                         </div>
 
                                         {isMobile && (
-                                            <p>
-                                                SSVM brings together talent, innovation, and opportunities to help you build and flex your future.
-                                            </p>
+                                            <div
+                                                className="mobile_gallery"
+                                                ref={mobileGalleryRef}
+                                                onTouchStart={handleTouchStart}
+                                                onTouchMove={handleTouchMove}
+                                                onTouchEnd={handleTouchEnd}
+                                            >
+                                                {stackImages.map((img, index) => {
+                                                    let className = "stack_card";
+                                                    const orderClass = ["top", "second", "third", "fourth"];
+                                                    if (index < 4) className += ` ${orderClass[index]}`;
+                                                    if (img.includes("image-1.jpg")) className += " one";
+                                                    else if (img.includes("image-2.jpg")) className += " two";
+                                                    else if (img.includes("image-3.jpg")) className += " three";
+                                                    else if (img.includes("image-4.jpg")) className += " four";
+                                                    return <img key={img} src={img} className={className} alt="SSVM Logo" />;
+                                                })}
+                                            </div>
                                         )}
                                     </div>
-
-                                    {isMobile && (
-                                        <div
-                                            className="mobile_gallery"
-                                            ref={mobileGalleryRef}
-                                            onTouchStart={handleTouchStart}
-                                            onTouchMove={handleTouchMove}
-                                            onTouchEnd={handleTouchEnd}
-                                        >
-                                            {stackImages.map((img, index) => {
-                                                let className = "stack_card";
-                                                const orderClass = ["top", "second", "third", "fourth"];
-                                                if (index < 4) className += ` ${orderClass[index]}`;
-                                                if (img.includes("image-1.jpg")) className += " one";
-                                                else if (img.includes("image-2.jpg")) className += " two";
-                                                else if (img.includes("image-3.jpg")) className += " three";
-                                                else if (img.includes("image-4.jpg")) className += " four";
-                                                return <img key={img} src={img} className={className} alt="SSVM Logo" />;
-                                            })}
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                         </div>
@@ -340,9 +343,10 @@ const Homepage = () => {
                 <SpeakerSwiper />
             </div>
             <ArcherScrollAnimation />
-            <div data-aos="zoom-in">
+            <GuruAwardArchery />
+            {/* <div data-aos="zoom-in">
                 <GuruAward />
-            </div>
+            </div> */}
             {/* <section className="pt-5 features_section">
                 <div className="features_content">
                     <div className="section_container">

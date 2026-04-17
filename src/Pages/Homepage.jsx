@@ -506,7 +506,7 @@ const Homepage = () => {
                             {/* RIGHT */}
 
                             <div className="col-xl-6">
-                                <div className="about__content ps-4">
+                                <div className="about__content ps-lg-4">
 
                                     <span className="section-sub-title fw-bold text-white">
                                         <img src={`${BASE_IMAGE_URL}favicon.png`} alt="" />

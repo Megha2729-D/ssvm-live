@@ -61,7 +61,7 @@ const Footer = () => {
                                     {/* <img src="./assets/images/logo-white.png" alt="" /> */}
                                     <div className="logo d-flex justify-content-lg-start justify-content-center">
                                         <Link to={"/"}>
-                                            <img src={`${BASE_IMAGE_URL}logo-video.gif`} className="logo-video" alt="" />
+                                            <img src={`${BASE_IMAGE_URL}ssvm-anim-white.gif`} className="logo-video" alt="" />
                                         </Link>
                                     </div>
                                     <p className="footer-text mt-4">

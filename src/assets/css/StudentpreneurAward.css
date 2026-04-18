@@ -62,7 +62,7 @@
 .student_award_sec .sp-content {
     /* text-align: center; */
     max-width: 900px;
-    padding: 20px 40px;
+    padding: 20px 40px 20px 50px;
     backdrop-filter: blur(15px);
     color: #ffffff;
 }
@@ -175,10 +175,28 @@
 
 @media screen and (max-width: 991px) {
     .fixed-cta {
+        border-radius: 20px;
+        bottom: 10px;
+    }
+
+    .fixed-cta p {
+        font-size: 12px;
+    }
+
+    .guru_award_parent button,
+    .guru_award_parent .btn-ghost {
+        padding: 10px 20px !important;
+    }
+
+    .guru_award_parent button span {
+        font-size: 14px;
+    }
+
+    /* .fixed-cta {
         position: relative !important;
         bottom: 0;
         border-radius: 20px;
-    }
+    } */
 
     .student_award_sec .hero-wrapper {
         padding: 60px 0;

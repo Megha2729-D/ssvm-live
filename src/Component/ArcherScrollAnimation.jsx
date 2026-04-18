@@ -22,7 +22,7 @@ const ArcherScrollAnimation = () => {
     const animationRef = useRef(null);
     useEffect(() => {
         gsap.set(mainHeadingRef.current, {
-            opacity: 0,
+            opacity: 1,
             y: 0
         });
     }, []);

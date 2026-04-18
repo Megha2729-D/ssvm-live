@@ -488,7 +488,7 @@ const Homepage = () => {
                     </div>
                 </div>
             </section> */}
-            <section className="about_section py-3">
+            <section className="about_section py-3" id="about">
                 <div className="section_container text-white py-5">
                     <div className="about_box">
                         <div className="row g-4 align-items-center">

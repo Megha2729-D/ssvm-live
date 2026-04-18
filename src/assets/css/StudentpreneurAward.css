@@ -183,6 +183,10 @@
         font-size: 12px;
     }
 
+    .student_award_sec .sp-content h2 {
+        font-size: 33px;
+    }
+
     .guru_award_parent button,
     .guru_award_parent .btn-ghost {
         padding: 10px 20px !important;
@@ -190,6 +194,10 @@
 
     .guru_award_parent button span {
         font-size: 14px;
+    }
+
+    .cta-wrapper {
+        padding-bottom: 215px;
     }
 
     /* .fixed-cta {

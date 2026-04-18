@@ -497,7 +497,7 @@ const Homepage = () => {
                             <div className="col-xl-6 d-flex align-items-center">
                                 <div className="about__image">
                                     <img
-                                        src="https://ssvm-2o-d4pw.vercel.app/_next/image?url=https%3A%2F%2Fssvmtransformationindia.s3.ap-south-1.amazonaws.com%2Fimages%2Fabout.jpg&w=640&q=75"
+                                        src="/assets/images/about-img.webp"
                                         alt=""
                                     />
                                 </div>
